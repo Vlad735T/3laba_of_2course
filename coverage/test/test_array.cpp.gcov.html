@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage_filtered.info - test/test_array.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory test">test</a> - test_array.cpp<span style="font-size: 80%;"> (source / <a href="test_array.cpp.func-c.html" title="Click to go to function table">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">131</td>
+            <td class="headerCovTableEntry">131</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2024-11-22 19:48:38</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">29</td>
+            <td class="headerCovTableEntry">29</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : #include &lt;gtest/gtest.h&gt;</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : #include &lt;gmock/gmock.h&gt;</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : #include &quot;array.h&quot;  </span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : </span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : // Шаблонный тестовый класс для Myvector</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : template &lt;typename T&gt;</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : class MyvectorTest : public ::testing::Test {</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : protected:</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :     Myvector&lt;T&gt; vec_int;  // Экземпляр вектора</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :     Myvector&lt;T&gt; vec_str;  </span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :     Myvector&lt;int&gt; vec_copy;</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : };</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : </span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : // Специализация шаблона для int</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : typedef MyvectorTest&lt;int&gt; test_vector_int;</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : typedef MyvectorTest&lt;string&gt; test_vector_str;</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : </span>
+<span id="L18"><span class="lineNum">      18</span>                 :<span class="tlaGNC tlaBgGNC">           4 : TEST_F(test_vector_int, MPUSH) {</span></span>
+<span id="L19"><span class="lineNum">      19</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(1);  </span></span>
+<span id="L20"><span class="lineNum">      20</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(2); </span></span>
+<span id="L21"><span class="lineNum">      21</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(3);  </span></span>
+<span id="L22"><span class="lineNum">      22</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(4);  </span></span>
+<span id="L23"><span class="lineNum">      23</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(4);  </span></span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : </span>
+<span id="L25"><span class="lineNum">      25</span>                 :<span class="tlaGNC">           1 :     int var = vec_int.MGET(4) - vec_int.MGET(1);</span></span>
+<span id="L26"><span class="lineNum">      26</span>                 :<span class="tlaGNC">           1 :     int var_LE = vec_int.MGET(4) - vec_int.MGET(3);</span></span>
+<span id="L27"><span class="lineNum">      27</span>                 :<span class="tlaGNC">           1 :     int var_proizved_fir = pow(vec_int.MGET(2), 3) - vec_int.MGET(3);</span></span>
+<span id="L28"><span class="lineNum">      28</span>                 :<span class="tlaGNC">           1 :     int var_proizved_sec = vec_int.MGET(0) * 23;</span></span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : </span>
+<span id="L30"><span class="lineNum">      30</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.size(), 5);  </span></span>
+<span id="L31"><span class="lineNum">      31</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(var, 2); </span></span>
+<span id="L32"><span class="lineNum">      32</span>                 :<span class="tlaGNC">           1 :     EXPECT_NE(vec_int.MGET(0), 15);</span></span>
+<span id="L33"><span class="lineNum">      33</span>                 :<span class="tlaGNC">           1 :     EXPECT_GE(var_proizved_fir, var_proizved_sec);</span></span>
+<span id="L34"><span class="lineNum">      34</span>                 :<span class="tlaGNC">           1 :     EXPECT_LE(var_LE, 4);</span></span>
+<span id="L35"><span class="lineNum">      35</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : </span>
+<span id="L37"><span class="lineNum">      37</span>                 :<span class="tlaGNC">           4 : TEST_F(test_vector_str, MPUSH){</span></span>
+<span id="L38"><span class="lineNum">      38</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;Vlad&quot;);</span></span>
+<span id="L39"><span class="lineNum">      39</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;Dasha&quot;);</span></span>
+<span id="L40"><span class="lineNum">      40</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;Anton&quot;);</span></span>
+<span id="L41"><span class="lineNum">      41</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;Roma&quot;);</span></span>
+<span id="L42"><span class="lineNum">      42</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;Igor&quot;);</span></span>
+<span id="L43"><span class="lineNum">      43</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;Vlad&quot;);</span></span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : </span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : </span>
+<span id="L46"><span class="lineNum">      46</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_str.MGET(0), vec_str.MGET(5));</span></span>
+<span id="L47"><span class="lineNum">      47</span>                 :<span class="tlaGNC">           1 :     EXPECT_NE(vec_str.MGET(1), vec_str.MGET(2));</span></span>
+<span id="L48"><span class="lineNum">      48</span>                 :<span class="tlaGNC">           1 :     EXPECT_THAT(vec_str.MGET(3),  ::testing::EndsWith(&quot;ma&quot;));</span></span>
+<span id="L49"><span class="lineNum">      49</span>                 :<span class="tlaGNC">           1 :     EXPECT_THAT(vec_str.MGET(1),  ::testing::StartsWith(&quot;Da&quot;));</span></span>
+<span id="L50"><span class="lineNum">      50</span>                 :<span class="tlaGNC">           1 :     EXPECT_THAT(vec_str.MGET(4),  ::testing::Not(&quot;Pavel&quot;));</span></span>
+<span id="L51"><span class="lineNum">      51</span>                 :<span class="tlaGNC">           1 :     EXPECT_THAT(vec_str.MGET(2),  ::testing::HasSubstr(&quot;nto&quot;));</span></span>
+<span id="L52"><span class="lineNum">      52</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : </span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : </span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : </span>
+<span id="L56"><span class="lineNum">      56</span>                 :<span class="tlaGNC">           4 : TEST_F(test_vector_int, MPUSH_IND){</span></span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : </span>
+<span id="L58"><span class="lineNum">      58</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(2, 0);  </span></span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(4, 1);  </span></span>
+<span id="L60"><span class="lineNum">      60</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(8, 0);  </span></span>
+<span id="L61"><span class="lineNum">      61</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(16, 0);  </span></span>
+<span id="L62"><span class="lineNum">      62</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(32, 2);  </span></span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : </span>
+<span id="L64"><span class="lineNum">      64</span>                 :<span class="tlaGNC">           1 :     vec_int.print();</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :             :     </span>
+<span id="L66"><span class="lineNum">      66</span>                 :<span class="tlaGNC">           1 :     int fir_val = vec_int.MGET(1);</span></span>
+<span id="L67"><span class="lineNum">      67</span>                 :<span class="tlaGNC">           1 :     int sec_val = vec_int.MGET(4);</span></span>
+<span id="L68"><span class="lineNum">      68</span>                 :<span class="tlaGNC">           1 :     int third_val = vec_int.MGET(0) * 7;</span></span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : </span>
+<span id="L70"><span class="lineNum">      70</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.MGET(3), 2);  </span></span>
+<span id="L71"><span class="lineNum">      71</span>                 :<span class="tlaGNC">           1 :     EXPECT_GE(fir_val, sec_val);</span></span>
+<span id="L72"><span class="lineNum">      72</span>                 :<span class="tlaGNC">           1 :     EXPECT_LT(vec_int.MGET(0), vec_int.MGET(2));</span></span>
+<span id="L73"><span class="lineNum">      73</span>                 :<span class="tlaGNC">           1 :     EXPECT_GT(third_val, 111);</span></span>
+<span id="L74"><span class="lineNum">      74</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L75"><span class="lineNum">      75</span>                 :             : </span>
+<span id="L76"><span class="lineNum">      76</span>                 :             : </span>
+<span id="L77"><span class="lineNum">      77</span>                 :             : </span>
+<span id="L78"><span class="lineNum">      78</span>                 :             : </span>
+<span id="L79"><span class="lineNum">      79</span>                 :<span class="tlaGNC">           4 : TEST_F(test_vector_str, MPUSH_IND){</span></span>
+<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;computer&quot;, 0);</span></span>
+<span id="L81"><span class="lineNum">      81</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;mouse&quot;, 0);</span></span>
+<span id="L82"><span class="lineNum">      82</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;cake&quot;, 1);</span></span>
+<span id="L83"><span class="lineNum">      83</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;head&quot;,2);</span></span>
+<span id="L84"><span class="lineNum">      84</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;pig&quot;, 3);</span></span>
+<span id="L85"><span class="lineNum">      85</span>                 :<span class="tlaGNC">           2 :     vec_str.MPUSH(&quot;peper&quot;, 4);</span></span>
+<span id="L86"><span class="lineNum">      86</span>                 :             : </span>
+<span id="L87"><span class="lineNum">      87</span>                 :<span class="tlaGNC">           1 :     string merger_fir_sec = vec_str.MGET(0) + vec_str.MGET(1);</span></span>
+<span id="L88"><span class="lineNum">      88</span>                 :<span class="tlaGNC">           1 :     string merger_thir_four = vec_str.MGET(2) + &quot; &quot; + vec_str.MGET(3);</span></span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : </span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaGNC">           1 :     EXPECT_THAT(merger_fir_sec,  ::testing::HasSubstr(&quot;useca&quot;));</span></span>
+<span id="L91"><span class="lineNum">      91</span>                 :<span class="tlaGNC">           1 :     EXPECT_THAT(vec_str.MGET(4),  ::testing::Not(&quot;epes&quot;));</span></span>
+<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaGNC">           1 :     EXPECT_THAT(merger_thir_four, ::testing::Not(::testing::MatchesRegex(&quot;^pig&quot;)));</span></span>
+<span id="L93"><span class="lineNum">      93</span>                 :<span class="tlaGNC">           1 :     EXPECT_THAT(merger_thir_four, ::testing::Not(::testing::MatchesRegex(&quot;computer$&quot;)));</span></span>
+<span id="L94"><span class="lineNum">      94</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : </span>
+<span id="L96"><span class="lineNum">      96</span>                 :<span class="tlaGNC">           4 : TEST_F(test_vector_int, MDEL) {</span></span>
+<span id="L97"><span class="lineNum">      97</span>                 :             :     </span>
+<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(10);</span></span>
+<span id="L99"><span class="lineNum">      99</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(20);</span></span>
+<span id="L100"><span class="lineNum">     100</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(30);</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :             : </span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaGNC">           1 :     Myvector&lt;int&gt;vec = vec_int;</span></span>
+<span id="L103"><span class="lineNum">     103</span>                 :             : </span>
+<span id="L104"><span class="lineNum">     104</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec.size(), 3);         </span></span>
+<span id="L105"><span class="lineNum">     105</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec[0], 10);            </span></span>
+<span id="L106"><span class="lineNum">     106</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec[1], 20);             </span></span>
+<span id="L107"><span class="lineNum">     107</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec[2], 30);          </span></span>
+<span id="L108"><span class="lineNum">     108</span>                 :             : </span>
+<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaGNC">           1 :     vec.MDEL(1);</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :             : </span>
+<span id="L111"><span class="lineNum">     111</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec.size(), 2);          </span></span>
+<span id="L112"><span class="lineNum">     112</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec[0], 10);            </span></span>
+<span id="L113"><span class="lineNum">     113</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec[1], 30);           </span></span>
+<span id="L114"><span class="lineNum">     114</span>                 :             : </span>
+<span id="L115"><span class="lineNum">     115</span>                 :<span class="tlaGNC">           1 :     vec.MDEL(0);</span></span>
+<span id="L116"><span class="lineNum">     116</span>                 :             : </span>
+<span id="L117"><span class="lineNum">     117</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec.size(), 1);        </span></span>
+<span id="L118"><span class="lineNum">     118</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec[0], 30);            </span></span>
+<span id="L119"><span class="lineNum">     119</span>                 :             : </span>
+<span id="L120"><span class="lineNum">     120</span>                 :<span class="tlaGNC">           1 :     EXPECT_THROW(vec.MDEL(-1), out_of_range);</span></span>
+<span id="L121"><span class="lineNum">     121</span>                 :             : </span>
+<span id="L122"><span class="lineNum">     122</span>                 :<span class="tlaGNC">           1 :     EXPECT_THROW(vec.MDEL(10), out_of_range);</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :             : </span>
+<span id="L125"><span class="lineNum">     125</span>                 :             : </span>
+<span id="L126"><span class="lineNum">     126</span>                 :             : </span>
+<span id="L127"><span class="lineNum">     127</span>                 :<span class="tlaGNC">           4 : TEST_F(test_vector_int, MGET_WITH_MSET) {</span></span>
+<span id="L128"><span class="lineNum">     128</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(11);  </span></span>
+<span id="L129"><span class="lineNum">     129</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(13, 0);  </span></span>
+<span id="L130"><span class="lineNum">     130</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(15);  </span></span>
+<span id="L131"><span class="lineNum">     131</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(17, 1);  </span></span>
+<span id="L132"><span class="lineNum">     132</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(19, 3);  </span></span>
+<span id="L133"><span class="lineNum">     133</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(21, 5);  </span></span>
+<span id="L134"><span class="lineNum">     134</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(23, 2);  </span></span>
+<span id="L135"><span class="lineNum">     135</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(13);  </span></span>
+<span id="L136"><span class="lineNum">     136</span>                 :             : </span>
+<span id="L137"><span class="lineNum">     137</span>                 :<span class="tlaGNC">           1 :     int fir_val = vec_int.MGET(2) + vec_int.MGET(1); // 40</span></span>
+<span id="L138"><span class="lineNum">     138</span>                 :<span class="tlaGNC">           1 :     int sec_val = vec_int.MGET(4) + vec_int.MGET(3); // 30</span></span>
+<span id="L139"><span class="lineNum">     139</span>                 :<span class="tlaGNC">           1 :     int third_val = vec_int.MGET(0) +  vec_int.MGET(5);</span></span>
+<span id="L140"><span class="lineNum">     140</span>                 :             :     </span>
+<span id="L141"><span class="lineNum">     141</span>                 :<span class="tlaGNC">           1 :     [[maybe_unused]] int fourth_val = vec_int.MGET(0) + vec_int.MGET(5);  // Оставить переменную без предупреждения</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :             : </span>
+<span id="L143"><span class="lineNum">     143</span>                 :<span class="tlaGNC">           1 :     vec_int.MSET(1, 0);  </span></span>
+<span id="L144"><span class="lineNum">     144</span>                 :<span class="tlaGNC">           1 :     vec_int.MSET(2, 1);  </span></span>
+<span id="L145"><span class="lineNum">     145</span>                 :<span class="tlaGNC">           1 :     vec_int.MSET(3, 2);  </span></span>
+<span id="L146"><span class="lineNum">     146</span>                 :<span class="tlaGNC">           1 :     int fifth_val = 2 * ( vec_int.MGET(0) +  vec_int.MGET(1)+  vec_int.MGET(2) );</span></span>
+<span id="L147"><span class="lineNum">     147</span>                 :             : </span>
+<span id="L148"><span class="lineNum">     148</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(fir_val, 40);  </span></span>
+<span id="L149"><span class="lineNum">     149</span>                 :<span class="tlaGNC">           1 :     EXPECT_NE(vec_int.MGET(1), vec_int.MGET(7));  </span></span>
+<span id="L150"><span class="lineNum">     150</span>                 :<span class="tlaGNC">           1 :     EXPECT_GE(fir_val, third_val);  </span></span>
+<span id="L151"><span class="lineNum">     151</span>                 :<span class="tlaGNC">           1 :     EXPECT_LT(sec_val, fir_val);  </span></span>
+<span id="L152"><span class="lineNum">     152</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(fifth_val, vec_int.MGET(3) + 1);  </span></span>
+<span id="L153"><span class="lineNum">     153</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L154"><span class="lineNum">     154</span>                 :             : </span>
+<span id="L155"><span class="lineNum">     155</span>                 :             : </span>
+<span id="L156"><span class="lineNum">     156</span>                 :             : </span>
+<span id="L157"><span class="lineNum">     157</span>                 :<span class="tlaGNC">           4 : TEST_F(test_vector_int, OTHER_ACTIVITY) {</span></span>
+<span id="L158"><span class="lineNum">     158</span>                 :             : </span>
+<span id="L159"><span class="lineNum">     159</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.size(), 0);</span></span>
+<span id="L160"><span class="lineNum">     160</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.memory_use(), 1);</span></span>
+<span id="L161"><span class="lineNum">     161</span>                 :             : </span>
+<span id="L162"><span class="lineNum">     162</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(1);</span></span>
+<span id="L163"><span class="lineNum">     163</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(2);</span></span>
+<span id="L164"><span class="lineNum">     164</span>                 :<span class="tlaGNC">           1 :     vec_int.MPUSH(3);</span></span>
+<span id="L165"><span class="lineNum">     165</span>                 :             : </span>
+<span id="L166"><span class="lineNum">     166</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.size(), 3);</span></span>
+<span id="L167"><span class="lineNum">     167</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.memory_use(), 4);  </span></span>
+<span id="L168"><span class="lineNum">     168</span>                 :             : </span>
+<span id="L169"><span class="lineNum">     169</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(*vec_int.begin(), 1);</span></span>
+<span id="L170"><span class="lineNum">     170</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(*(vec_int.end() - 1), 3);</span></span>
+<span id="L171"><span class="lineNum">     171</span>                 :             : </span>
+<span id="L172"><span class="lineNum">     172</span>                 :<span class="tlaGNC">           1 :     vec_copy = vec_int;</span></span>
+<span id="L173"><span class="lineNum">     173</span>                 :             : </span>
+<span id="L174"><span class="lineNum">     174</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_copy.size(), vec_int.size());</span></span>
+<span id="L175"><span class="lineNum">     175</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_copy.memory_use(), vec_int.memory_use());</span></span>
+<span id="L176"><span class="lineNum">     176</span>                 :             : </span>
+<span id="L177"><span class="lineNum">     177</span>                 :<span class="tlaGNC">           1 :     int index = 0;</span></span>
+<span id="L178"><span class="lineNum">     178</span>                 :<span class="tlaGNC">           4 :     for (auto it = vec_int.begin(); it != vec_int.end(); ++it) {</span></span>
+<span id="L179"><span class="lineNum">     179</span>                 :<span class="tlaGNC">           3 :         EXPECT_EQ(*it, vec_copy[index++]);</span></span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :     }</span>
+<span id="L181"><span class="lineNum">     181</span>                 :             : </span>
+<span id="L182"><span class="lineNum">     182</span>                 :<span class="tlaGNC">           1 :     vec_int.resize(10);</span></span>
+<span id="L183"><span class="lineNum">     183</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.size(), 3);  </span></span>
+<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.memory_use(), 10);  </span></span>
+<span id="L185"><span class="lineNum">     185</span>                 :             : </span>
+<span id="L186"><span class="lineNum">     186</span>                 :<span class="tlaGNC">           1 :     vec_int.resize(2);</span></span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.size(), 2);  </span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.memory_use(), 2);  </span></span>
+<span id="L189"><span class="lineNum">     189</span>                 :             : </span>
+<span id="L190"><span class="lineNum">     190</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(*vec_int.begin(), 1);</span></span>
+<span id="L191"><span class="lineNum">     191</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(*(vec_int.end() - 1), 2);</span></span>
+<span id="L192"><span class="lineNum">     192</span>                 :             : </span>
+<span id="L193"><span class="lineNum">     193</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.memory_use(), 2);</span></span>
+<span id="L194"><span class="lineNum">     194</span>                 :             : </span>
+<span id="L195"><span class="lineNum">     195</span>                 :<span class="tlaGNC">           1 :     EXPECT_EQ(vec_int.size(), 2);</span></span>
+<span id="L196"><span class="lineNum">     196</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L197"><span class="lineNum">     197</span>                 :             : </span>
+<span id="L198"><span class="lineNum">     198</span>                 :             : </span>
+<span id="L199"><span class="lineNum">     199</span>                 :<span class="tlaGNC">           1 : int main(int argc, char **argv) {</span></span>
+<span id="L200"><span class="lineNum">     200</span>                 :<span class="tlaGNC">           1 :     ::testing::InitGoogleTest(&amp;argc, argv);  // Инициализация Google Test</span></span>
+<span id="L201"><span class="lineNum">     201</span>                 :<span class="tlaGNC">           1 :     return RUN_ALL_TESTS();  // Запуск всех тестов</span></span>
+<span id="L202"><span class="lineNum">     202</span>                 :             : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>
