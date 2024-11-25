@@ -1,4 +1,0 @@
-go mod init mymodule
-go build
-go clean -modcache
-go build <имя_файла>.go 

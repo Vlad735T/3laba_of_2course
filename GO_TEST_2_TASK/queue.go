@@ -1,6 +1,9 @@
-package main // говорим компилятору что данная программа является главной среди всех
+package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Node struct {
 	data string
@@ -46,6 +49,22 @@ func (q *QUEUE) is_empty() bool {
 	return q.head == nil
 }
 
+func (q *QUEUE) size() (int, error) {
+
+	if q.head == nil {
+		return 0, errors.New("queue is empty")
+	}
+
+	temp := q.head
+	count := 0
+
+	for temp != nil {
+		count++
+		temp = temp.next
+	}
+	return count, nil
+}
+
 func (q *QUEUE) pop() string {
 	if q.is_empty() {
 		return ""
@@ -69,40 +88,4 @@ func (q *QUEUE) print() {
 		fmt.Print(current.data, " ")
 		current = current.next
 	}
-}
-
-func main() {
-
-	q1 := new_queue()
-	q2 := new_queue()
-
-	q1.push("keks")
-	q1.push("VLad")
-	q1.print()
-	fmt.Println(": 1 queue")
-	q1.pop()
-	q1.print()
-	fmt.Println(": 1 queue")
-
-	q2.push("keks")
-	q2.push("Igor")
-	q2.print()
-	fmt.Println(": 2 queue")
-
-	q2.pop()
-	q2.print()
-	fmt.Println(": 2 queue")
-
-	q2.pop()
-	q2.print()
-	fmt.Println(": 2 queue")
-
-	q2.pop()
-	q2.print()
-	fmt.Println(": 2 queue")
-
-	q2.pop()
-	q2.print()
-	fmt.Println(": 2 queue")
-
 }

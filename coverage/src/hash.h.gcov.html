@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-11-22 19:48:38</td>
+            <td class="headerValue">2024-11-25 22:45:28</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -314,8 +314,141 @@
 <span id="L243"><span class="lineNum">     243</span>                 :             :     //     write_file.close();</span>
 <span id="L244"><span class="lineNum">     244</span>                 :             :     // }</span>
 <span id="L245"><span class="lineNum">     245</span>                 :             : </span>
-<span id="L246"><span class="lineNum">     246</span>                 :             : };</span>
-<span id="L247"><span class="lineNum">     247</span>                 :             : </span>
+<span id="L246"><span class="lineNum">     246</span>                 :             :     void serialization(const string&amp; filename) { </span>
+<span id="L247"><span class="lineNum">     247</span>                 :             :             ofstream file(filename, ios::binary);</span>
+<span id="L248"><span class="lineNum">     248</span>                 :             :             if (!file.is_open()) {</span>
+<span id="L249"><span class="lineNum">     249</span>                 :             :                 cerr &lt;&lt; &quot;Error opening file for writing: &quot; &lt;&lt; filename &lt;&lt; &quot;\n&quot;;</span>
+<span id="L250"><span class="lineNum">     250</span>                 :             :                 return;</span>
+<span id="L251"><span class="lineNum">     251</span>                 :             :             }</span>
+<span id="L252"><span class="lineNum">     252</span>                 :             : </span>
+<span id="L253"><span class="lineNum">     253</span>                 :             :             int SIZE = this-&gt;size;</span>
+<span id="L254"><span class="lineNum">     254</span>                 :             :             file.write(reinterpret_cast&lt;char*&gt;(&amp;SIZE), sizeof(SIZE));</span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :             if (!file) {</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             :                 cerr &lt;&lt; &quot;Error writing size to file.\n&quot;;</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             :                 return;</span>
+<span id="L258"><span class="lineNum">     258</span>                 :             :             }</span>
+<span id="L259"><span class="lineNum">     259</span>                 :             : </span>
+<span id="L260"><span class="lineNum">     260</span>                 :             :             // Проходим по таблице и записываем данные</span>
+<span id="L261"><span class="lineNum">     261</span>                 :             :             for (int i = 0; i &lt; SIZE; i++) {</span>
+<span id="L262"><span class="lineNum">     262</span>                 :             :                 Node* current = table[i];</span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :                 while (current != nullptr) {</span>
+<span id="L264"><span class="lineNum">     264</span>                 :             :                     int key_length = current-&gt;key.size();</span>
+<span id="L265"><span class="lineNum">     265</span>                 :             :                     file.write(reinterpret_cast&lt;char*&gt;(&amp;key_length), sizeof(key_length));</span>
+<span id="L266"><span class="lineNum">     266</span>                 :             :                     if (!file) {</span>
+<span id="L267"><span class="lineNum">     267</span>                 :             :                         cerr &lt;&lt; &quot;Error writing key length to file.\n&quot;;</span>
+<span id="L268"><span class="lineNum">     268</span>                 :             :                         return;</span>
+<span id="L269"><span class="lineNum">     269</span>                 :             :                     }</span>
+<span id="L270"><span class="lineNum">     270</span>                 :             :                     file.write(current-&gt;key.c_str(), key_length);</span>
+<span id="L271"><span class="lineNum">     271</span>                 :             :                     if (!file) {</span>
+<span id="L272"><span class="lineNum">     272</span>                 :             :                         cerr &lt;&lt; &quot;Error writing key to file.\n&quot;;</span>
+<span id="L273"><span class="lineNum">     273</span>                 :             :                         return;</span>
+<span id="L274"><span class="lineNum">     274</span>                 :             :                     }</span>
+<span id="L275"><span class="lineNum">     275</span>                 :             : </span>
+<span id="L276"><span class="lineNum">     276</span>                 :             :                     int value_length = current-&gt;value.size();</span>
+<span id="L277"><span class="lineNum">     277</span>                 :             :                     file.write(reinterpret_cast&lt;char*&gt;(&amp;value_length), sizeof(value_length));</span>
+<span id="L278"><span class="lineNum">     278</span>                 :             :                     if (!file) {</span>
+<span id="L279"><span class="lineNum">     279</span>                 :             :                         cerr &lt;&lt; &quot;Error writing value length to file.\n&quot;;</span>
+<span id="L280"><span class="lineNum">     280</span>                 :             :                         return;</span>
+<span id="L281"><span class="lineNum">     281</span>                 :             :                     }</span>
+<span id="L282"><span class="lineNum">     282</span>                 :             :                     file.write(current-&gt;value.c_str(), value_length);</span>
+<span id="L283"><span class="lineNum">     283</span>                 :             :                     if (!file) {</span>
+<span id="L284"><span class="lineNum">     284</span>                 :             :                         cerr &lt;&lt; &quot;Error writing value to file.\n&quot;;</span>
+<span id="L285"><span class="lineNum">     285</span>                 :             :                         return;</span>
+<span id="L286"><span class="lineNum">     286</span>                 :             :                     }</span>
+<span id="L287"><span class="lineNum">     287</span>                 :             : </span>
+<span id="L288"><span class="lineNum">     288</span>                 :             :                     // cout &lt;&lt; &quot;Serialized key-value pair: [&quot; &lt;&lt; current-&gt;key &lt;&lt; &quot;: &quot; &lt;&lt; current-&gt;value &lt;&lt; &quot;]&quot; &lt;&lt; endl;</span>
+<span id="L289"><span class="lineNum">     289</span>                 :             : </span>
+<span id="L290"><span class="lineNum">     290</span>                 :             :                     current = current-&gt;next;</span>
+<span id="L291"><span class="lineNum">     291</span>                 :             :                 }</span>
+<span id="L292"><span class="lineNum">     292</span>                 :             :             }</span>
+<span id="L293"><span class="lineNum">     293</span>                 :             : </span>
+<span id="L294"><span class="lineNum">     294</span>                 :             :             file.close();</span>
+<span id="L295"><span class="lineNum">     295</span>                 :             :             if (!file) {</span>
+<span id="L296"><span class="lineNum">     296</span>                 :             :                 cerr &lt;&lt; &quot;Error closing file after writing.\n&quot;;</span>
+<span id="L297"><span class="lineNum">     297</span>                 :             :             } else {</span>
+<span id="L298"><span class="lineNum">     298</span>                 :             :                 cout &lt;&lt; &quot;Serialization successful!&quot; &lt;&lt; &quot;\n&quot;;</span>
+<span id="L299"><span class="lineNum">     299</span>                 :             :             }</span>
+<span id="L300"><span class="lineNum">     300</span>                 :             :     }</span>
+<span id="L301"><span class="lineNum">     301</span>                 :             : </span>
+<span id="L302"><span class="lineNum">     302</span>                 :             : </span>
+<span id="L303"><span class="lineNum">     303</span>                 :             :     void deserialization(const string&amp; filename) {</span>
+<span id="L304"><span class="lineNum">     304</span>                 :             :         ifstream file(filename, ios::binary);</span>
+<span id="L305"><span class="lineNum">     305</span>                 :             :         if (!file.is_open()) {</span>
+<span id="L306"><span class="lineNum">     306</span>                 :             :             cerr &lt;&lt; &quot;Error opening file for reading: &quot; &lt;&lt; filename &lt;&lt; &quot;\n&quot;;</span>
+<span id="L307"><span class="lineNum">     307</span>                 :             :             return;</span>
+<span id="L308"><span class="lineNum">     308</span>                 :             :         }</span>
+<span id="L309"><span class="lineNum">     309</span>                 :             : </span>
+<span id="L310"><span class="lineNum">     310</span>                 :             :         // Очистка таблицы перед загрузкой</span>
+<span id="L311"><span class="lineNum">     311</span>                 :             :         for (int i = 0; i &lt; size; ++i) {</span>
+<span id="L312"><span class="lineNum">     312</span>                 :             :             Node* current = table[i];</span>
+<span id="L313"><span class="lineNum">     313</span>                 :             :             while (current != nullptr) {</span>
+<span id="L314"><span class="lineNum">     314</span>                 :             :                 Node* temp = current;</span>
+<span id="L315"><span class="lineNum">     315</span>                 :             :                 current = current-&gt;next;</span>
+<span id="L316"><span class="lineNum">     316</span>                 :             :                 delete temp;</span>
+<span id="L317"><span class="lineNum">     317</span>                 :             :             }</span>
+<span id="L318"><span class="lineNum">     318</span>                 :             :             table[i] = nullptr;</span>
+<span id="L319"><span class="lineNum">     319</span>                 :             :         }</span>
+<span id="L320"><span class="lineNum">     320</span>                 :             : </span>
+<span id="L321"><span class="lineNum">     321</span>                 :             :         // Читаем новый размер</span>
+<span id="L322"><span class="lineNum">     322</span>                 :             :         int size_new;</span>
+<span id="L323"><span class="lineNum">     323</span>                 :             :         file.read(reinterpret_cast&lt;char*&gt;(&amp;size_new), sizeof(size_new));</span>
+<span id="L324"><span class="lineNum">     324</span>                 :             :         if (!file) {</span>
+<span id="L325"><span class="lineNum">     325</span>                 :             :             cerr &lt;&lt; &quot;Error reading size from file.\n&quot;;</span>
+<span id="L326"><span class="lineNum">     326</span>                 :             :             return;</span>
+<span id="L327"><span class="lineNum">     327</span>                 :             :         }</span>
+<span id="L328"><span class="lineNum">     328</span>                 :             : </span>
+<span id="L329"><span class="lineNum">     329</span>                 :             :         // Если размер изменился, пересоздаем таблицу</span>
+<span id="L330"><span class="lineNum">     330</span>                 :             :         if (size_new != size) {</span>
+<span id="L331"><span class="lineNum">     331</span>                 :             :             delete[] table;</span>
+<span id="L332"><span class="lineNum">     332</span>                 :             :             size = size_new;</span>
+<span id="L333"><span class="lineNum">     333</span>                 :             :             table = new Node*[size];</span>
+<span id="L334"><span class="lineNum">     334</span>                 :             :             for (int i = 0; i &lt; size; ++i) {</span>
+<span id="L335"><span class="lineNum">     335</span>                 :             :                 table[i] = nullptr;</span>
+<span id="L336"><span class="lineNum">     336</span>                 :             :             }</span>
+<span id="L337"><span class="lineNum">     337</span>                 :             :         }</span>
+<span id="L338"><span class="lineNum">     338</span>                 :             : </span>
+<span id="L339"><span class="lineNum">     339</span>                 :             :         // Чтение ключей и значений из файла</span>
+<span id="L340"><span class="lineNum">     340</span>                 :             :         while (file.peek() != EOF) {</span>
+<span id="L341"><span class="lineNum">     341</span>                 :             :             int keyLength;</span>
+<span id="L342"><span class="lineNum">     342</span>                 :             :             file.read(reinterpret_cast&lt;char*&gt;(&amp;keyLength), sizeof(keyLength));</span>
+<span id="L343"><span class="lineNum">     343</span>                 :             :             if (!file) {</span>
+<span id="L344"><span class="lineNum">     344</span>                 :             :                 cerr &lt;&lt; &quot;Error reading key length from file.\n&quot;;</span>
+<span id="L345"><span class="lineNum">     345</span>                 :             :                 return;</span>
+<span id="L346"><span class="lineNum">     346</span>                 :             :             }</span>
+<span id="L347"><span class="lineNum">     347</span>                 :             : </span>
+<span id="L348"><span class="lineNum">     348</span>                 :             :             string key(keyLength, '\0');</span>
+<span id="L349"><span class="lineNum">     349</span>                 :             :             file.read(&amp;key[0], keyLength);</span>
+<span id="L350"><span class="lineNum">     350</span>                 :             :             if (!file) {</span>
+<span id="L351"><span class="lineNum">     351</span>                 :             :                 cerr &lt;&lt; &quot;Error reading key from file.\n&quot;;</span>
+<span id="L352"><span class="lineNum">     352</span>                 :             :                 return;</span>
+<span id="L353"><span class="lineNum">     353</span>                 :             :             }</span>
+<span id="L354"><span class="lineNum">     354</span>                 :             : </span>
+<span id="L355"><span class="lineNum">     355</span>                 :             :             int valueLength;</span>
+<span id="L356"><span class="lineNum">     356</span>                 :             :             file.read(reinterpret_cast&lt;char*&gt;(&amp;valueLength), sizeof(valueLength));</span>
+<span id="L357"><span class="lineNum">     357</span>                 :             :             if (!file) {</span>
+<span id="L358"><span class="lineNum">     358</span>                 :             :                 cerr &lt;&lt; &quot;Error reading value length from file.\n&quot;;</span>
+<span id="L359"><span class="lineNum">     359</span>                 :             :                 return;</span>
+<span id="L360"><span class="lineNum">     360</span>                 :             :             }</span>
+<span id="L361"><span class="lineNum">     361</span>                 :             : </span>
+<span id="L362"><span class="lineNum">     362</span>                 :             :             string value(valueLength, '\0');</span>
+<span id="L363"><span class="lineNum">     363</span>                 :             :             file.read(&amp;value[0], valueLength);</span>
+<span id="L364"><span class="lineNum">     364</span>                 :             :             if (!file) {</span>
+<span id="L365"><span class="lineNum">     365</span>                 :             :                 cerr &lt;&lt; &quot;Error reading value from file.\n&quot;;</span>
+<span id="L366"><span class="lineNum">     366</span>                 :             :                 return;</span>
+<span id="L367"><span class="lineNum">     367</span>                 :             :             }</span>
+<span id="L368"><span class="lineNum">     368</span>                 :             : </span>
+<span id="L369"><span class="lineNum">     369</span>                 :             :             add(key, value);</span>
+<span id="L370"><span class="lineNum">     370</span>                 :             :         }</span>
+<span id="L371"><span class="lineNum">     371</span>                 :             : </span>
+<span id="L372"><span class="lineNum">     372</span>                 :             :         file.close();</span>
+<span id="L373"><span class="lineNum">     373</span>                 :             :         if (!file) {</span>
+<span id="L374"><span class="lineNum">     374</span>                 :             :             cerr &lt;&lt; &quot;Error closing file after reading.\n&quot;;</span>
+<span id="L375"><span class="lineNum">     375</span>                 :             :         } else {</span>
+<span id="L376"><span class="lineNum">     376</span>                 :             :             cout &lt;&lt; &quot;Deserialization successful!&quot; &lt;&lt; &quot;\n&quot;;</span>
+<span id="L377"><span class="lineNum">     377</span>                 :             :         }</span>
+<span id="L378"><span class="lineNum">     378</span>                 :             :     }</span>
+<span id="L379"><span class="lineNum">     379</span>                 :             : };</span>
+<span id="L380"><span class="lineNum">     380</span>                 :             : </span>
         </pre>
               </td>
             </tr>

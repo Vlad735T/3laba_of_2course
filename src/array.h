@@ -165,6 +165,54 @@ public:
     }
 
 
+    void serialization(const string& filename){
+
+        ofstream file(filename, ios::binary);
+        if(!file.is_open()){
+            cerr << "Error opening file!!!" << "\n";
+            return;
+        }
+
+        int size = this -> size_of_Vec;
+
+        file.write(reinterpret_cast<char*>(&size), sizeof(size));
+
+        for(int i = 0; i < size; i++){
+            size_t count_of_letters = arr[i].size();
+            file.write(reinterpret_cast<char*>(&count_of_letters), sizeof(count_of_letters));
+            file.write(arr[i].c_str(), count_of_letters);
+        }
+        file.close();
+    }
+
+    void deserialization(const string& filename){
+
+        ifstream file(filename, ios::binary);
+
+        if(!file.is_open()){
+            cerr << "Error opening file!!!" << "\n";
+            return;
+        }
+
+        int size; 
+        file.read(reinterpret_cast<char*>(&size), sizeof(size));
+
+        delete []arr;
+        arr = new T[size];
+        memory_size = size;
+        size_of_Vec = size; 
+
+        for(int i = 0; i < size; i++){
+            size_t length_word;
+            file.read(reinterpret_cast<char*>(&length_word), sizeof(length_word));
+
+            string buffer(length_word, '\0');
+            file.read(&buffer[0], length_word);
+            arr[i] = buffer;
+        }
+        file.close();
+        cout << "Deserialization was successful done!!!\n";
+    }
 
     // void save_to_file(const string& filename, const string& name_structure) const {
     //     // Читаем существующие данные из файла
@@ -251,56 +299,5 @@ public:
     //         cerr << "Ошибка открытия файла для чтения.\n";
     //     }
     // }
-
-
-
-    void serialize(const string& filename){
-
-        ofstream file(filename, ios::binary);
-        if(!file.is_open()){
-            cerr << "Error opening file!!!" << "\n";
-            return;
-        }
-
-        int size = this -> size_of_Vec;
-
-        file.write(reinterpret_cast<char*>(&size), sizeof(size));
-
-        for(int i = 0; i < size; i++){
-            size_t count_of_letters = arr[i].size();
-            file.write(reinterpret_cast<char*>(&count_of_letters), sizeof(count_of_letters));
-            file.write(arr[i].c_str(), count_of_letters);
-        }
-        file.close();
-    }
-
-    void deserialization(const string& filename){
-
-        ifstream file(filename, ios::binary);
-
-        if(!file.is_open()){
-            cerr << "Error opening file!!!" << "\n";
-            return;
-        }
-
-        int size; 
-        file.read(reinterpret_cast<char*>(&size), sizeof(size));
-
-        delete []arr;
-        arr = new T[size];
-        memory_size = size;
-
-        for(int i = 0; i < size_of_Vec; i++){
-            size_t length_word;
-            file.read(reinterpret_cast<char*>(&length_word), sizeof(length_word));
-
-            string buffer(length_word, '\0');
-            file.read(&buffer[0], length_word);
-            arr[i] = buffer;
-        }
-        file.close();
-    }
-
-
 
 };

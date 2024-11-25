@@ -13,59 +13,60 @@ protected:
 typedef QUEUETest<int> queue_int;
 typedef QUEUETest<string> queue_str;
 
-TEST_F(queue_int, PUSH_WITH_RANDOM_OPERATIONS) {
-
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<> dist(1, 10000); 
-
+TEST_F(queue_int, INT_QUEUE_SEQUENCE_OPERATIONS) {
     EXPECT_TRUE(queue_fir.is_empty());  
 
-    for (int i = 0; i < 10; ++i) {
-        int random_value = dist(gen);  
-        queue_fir.push((random_value));
-    }
+    queue_fir.push(10);
+    queue_fir.push(20);
+    queue_fir.push(30);
 
-    EXPECT_FALSE(queue_fir.is_empty());  
+    EXPECT_EQ(queue_fir.size(), 3);
+    EXPECT_EQ(queue_fir.front(), 10);
 
-    EXPECT_EQ(queue_fir.size(), 10);  
-    EXPECT_GE(queue_fir.front(), 10);  
+    queue_fir.pop();
+    EXPECT_EQ(queue_fir.front(), 20);
+    EXPECT_EQ(queue_fir.size(), 2);
 
+    queue_fir.pop();
+    EXPECT_EQ(queue_fir.front(), 30);
+    EXPECT_EQ(queue_fir.size(), 1);
 
-    for (size_t i = 0; i < 10; ++i) {
-        queue_fir.pop();
-        queue_fir.print();
-    }
-
-    queue_fir.print();
-
+    queue_fir.pop();
     EXPECT_TRUE(queue_fir.is_empty());
 
-    EXPECT_EQ(queue_fir.size(), 0);
-}                                                
+    // Проверка исключений
+    EXPECT_THROW(queue_fir.pop(), runtime_error);
+    EXPECT_THROW(queue_fir.front(), runtime_error);
+}
 
-TEST_F(queue_str, PUSH_WITH_RANDOM_OPERATIONS) {
 
+TEST_F(queue_str, STRING_QUEUE_SEQUENCE_OPERATIONS) {
     EXPECT_TRUE(queue_sec.is_empty());  
 
-    string words[] = {"apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"};
-    for (const string& word : words) {
-        queue_sec.push(word);
-    }
+    // Добавляем строки в очередь
+    queue_sec.push("hello");
+    queue_sec.push("world");
+    queue_sec.push("test");
 
-    queue_sec.print();
-    
-    EXPECT_FALSE(queue_sec.is_empty());  
-    EXPECT_EQ(queue_sec.size(), 10);  
+    EXPECT_EQ(queue_sec.size(), 3);
+    EXPECT_EQ(queue_sec.front(), "hello");
 
-    for (size_t i = 0; i < 10; ++i) {
-        queue_sec.pop();
-    }
+    // Удаляем элементы и проверяем
+    queue_sec.pop();
+    EXPECT_EQ(queue_sec.front(), "world");
+    EXPECT_EQ(queue_sec.size(), 2);
 
+    queue_sec.pop();
+    EXPECT_EQ(queue_sec.front(), "test");
+    EXPECT_EQ(queue_sec.size(), 1);
 
+    queue_sec.pop();
     EXPECT_TRUE(queue_sec.is_empty());
-    EXPECT_EQ(queue_sec.size(), 0);
+
+    EXPECT_THROW(queue_sec.pop(), runtime_error);
+    EXPECT_THROW(queue_sec.front(), runtime_error);
 }
+
 
 
 int main(int argc, char **argv) {

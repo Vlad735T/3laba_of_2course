@@ -1,0 +1,20 @@
+mode: set
+go_test_2_task/queue.go:19.34,25.2 1 1
+go_test_2_task/queue.go:27.25,32.2 1 1
+go_test_2_task/queue.go:34.36,38.36 2 1
+go_test_2_task/queue.go:38.36,41.3 2 1
+go_test_2_task/queue.go:41.8,45.3 3 1
+go_test_2_task/queue.go:48.33,50.2 1 1
+go_test_2_task/queue.go:52.37,54.19 1 1
+go_test_2_task/queue.go:54.19,56.3 1 0
+go_test_2_task/queue.go:58.2,61.18 3 1
+go_test_2_task/queue.go:61.18,64.3 2 1
+go_test_2_task/queue.go:65.2,65.19 1 1
+go_test_2_task/queue.go:68.30,69.18 1 1
+go_test_2_task/queue.go:69.18,71.3 1 0
+go_test_2_task/queue.go:73.2,75.22 2 1
+go_test_2_task/queue.go:75.22,78.3 2 1
+go_test_2_task/queue.go:78.8,81.3 2 1
+go_test_2_task/queue.go:82.2,82.13 1 1
+go_test_2_task/queue.go:85.25,87.21 2 1
+go_test_2_task/queue.go:87.21,90.3 2 1

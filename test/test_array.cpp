@@ -51,8 +51,6 @@ TEST_F(test_vector_str, MPUSH){
     EXPECT_THAT(vec_str.MGET(2),  ::testing::HasSubstr("nto"));
 }
 
-
-
 TEST_F(test_vector_int, MPUSH_IND){
 
     vec_int.MPUSH(2, 0);  
@@ -72,9 +70,6 @@ TEST_F(test_vector_int, MPUSH_IND){
     EXPECT_LT(vec_int.MGET(0), vec_int.MGET(2));
     EXPECT_GT(third_val, 111);
 }
-
-
-
 
 TEST_F(test_vector_str, MPUSH_IND){
     vec_str.MPUSH("computer", 0);
@@ -122,8 +117,6 @@ TEST_F(test_vector_int, MDEL) {
     EXPECT_THROW(vec.MDEL(10), out_of_range);
 }
 
-
-
 TEST_F(test_vector_int, MGET_WITH_MSET) {
     vec_int.MPUSH(11);  
     vec_int.MPUSH(13, 0);  
@@ -151,8 +144,6 @@ TEST_F(test_vector_int, MGET_WITH_MSET) {
     EXPECT_LT(sec_val, fir_val);  
     EXPECT_EQ(fifth_val, vec_int.MGET(3) + 1);  
 }
-
-
 
 TEST_F(test_vector_int, OTHER_ACTIVITY) {
 

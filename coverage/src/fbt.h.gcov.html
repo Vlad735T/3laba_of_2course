@@ -31,13 +31,13 @@
             <td class="headerValue">coverage_filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">94.0&nbsp;%</td>
-            <td class="headerCovTableEntry">83</td>
-            <td class="headerCovTableEntry">78</td>
+            <td class="headerCovTableEntryHi">94.1&nbsp;%</td>
+            <td class="headerCovTableEntry">85</td>
+            <td class="headerCovTableEntry">80</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-11-22 19:48:38</td>
+            <td class="headerValue">2024-11-25 22:45:28</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -89,305 +89,382 @@
 <span id="L18"><span class="lineNum">      18</span>                 :             : public:</span>
 <span id="L19"><span class="lineNum">      19</span>                 :<span class="tlaGNC">          10 :     Queue() : head(nullptr), tail(nullptr) {}</span></span>
 <span id="L20"><span class="lineNum">      20</span>                 :             : </span>
-<span id="L21"><span class="lineNum">      21</span>                 :<span class="tlaGNC">          23 :     Queue(const Queue&amp; other) : head(nullptr), tail(nullptr) {</span></span>
-<span id="L22"><span class="lineNum">      22</span>                 :<span class="tlaGNC">          23 :         Node* current = other.head;</span></span>
-<span id="L23"><span class="lineNum">      23</span>                 :<span class="tlaGNC">          78 :         while (current != nullptr) {</span></span>
-<span id="L24"><span class="lineNum">      24</span>                 :<span class="tlaGNC">          55 :             enqueue(current-&gt;data);  // We copy the elements one by one</span></span>
-<span id="L25"><span class="lineNum">      25</span>                 :<span class="tlaGNC">          55 :             current = current-&gt;next;</span></span>
-<span id="L26"><span class="lineNum">      26</span>                 :             :         }</span>
-<span id="L27"><span class="lineNum">      27</span>                 :<span class="tlaGNC">          23 :     }</span></span>
-<span id="L28"><span class="lineNum">      28</span>                 :             : </span>
-<span id="L29"><span class="lineNum">      29</span>                 :<span class="tlaGNC">          33 :     ~Queue() {</span></span>
-<span id="L30"><span class="lineNum">      30</span>                 :<span class="tlaGNC">         103 :         while (head != nullptr) {</span></span>
-<span id="L31"><span class="lineNum">      31</span>                 :<span class="tlaGNC">          37 :             Node* temp = head;</span></span>
-<span id="L32"><span class="lineNum">      32</span>                 :<span class="tlaGNC">          37 :             head = head-&gt;next;</span></span>
-<span id="L33"><span class="lineNum">      33</span>                 :<span class="tlaGNC">          37 :             delete temp;</span></span>
-<span id="L34"><span class="lineNum">      34</span>                 :             :         }</span>
-<span id="L35"><span class="lineNum">      35</span>                 :<span class="tlaGNC">          33 :     }</span></span>
-<span id="L36"><span class="lineNum">      36</span>                 :             : </span>
-<span id="L37"><span class="lineNum">      37</span>                 :<span class="tlaGNC">         261 :     bool is_empty() const { return head == nullptr; }</span></span>
+<span id="L21"><span class="lineNum">      21</span>                 :<span class="tlaGNC">          23 :     Queue(const Queue&amp; other) {</span></span>
+<span id="L22"><span class="lineNum">      22</span>                 :<span class="tlaGNC">          23 :         head = nullptr;</span></span>
+<span id="L23"><span class="lineNum">      23</span>                 :<span class="tlaGNC">          23 :         tail = nullptr;</span></span>
+<span id="L24"><span class="lineNum">      24</span>                 :<span class="tlaGNC">          23 :         Node* current = other.head;</span></span>
+<span id="L25"><span class="lineNum">      25</span>                 :<span class="tlaGNC">          78 :         while (current != nullptr) {</span></span>
+<span id="L26"><span class="lineNum">      26</span>                 :<span class="tlaGNC">          55 :             enqueue(current-&gt;data);  // We copy the elements one by one</span></span>
+<span id="L27"><span class="lineNum">      27</span>                 :<span class="tlaGNC">          55 :             current = current-&gt;next;</span></span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :         }</span>
+<span id="L29"><span class="lineNum">      29</span>                 :<span class="tlaGNC">          23 :     }</span></span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : </span>
+<span id="L31"><span class="lineNum">      31</span>                 :<span class="tlaGNC">          33 :     ~Queue() {</span></span>
+<span id="L32"><span class="lineNum">      32</span>                 :<span class="tlaGNC">         103 :         while (head != nullptr) {</span></span>
+<span id="L33"><span class="lineNum">      33</span>                 :<span class="tlaGNC">          37 :             Node* temp = head;</span></span>
+<span id="L34"><span class="lineNum">      34</span>                 :<span class="tlaGNC">          37 :             head = head-&gt;next;</span></span>
+<span id="L35"><span class="lineNum">      35</span>                 :<span class="tlaGNC">          37 :             delete temp;</span></span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :         }</span>
+<span id="L37"><span class="lineNum">      37</span>                 :<span class="tlaGNC">          33 :     }</span></span>
 <span id="L38"><span class="lineNum">      38</span>                 :             : </span>
-<span id="L39"><span class="lineNum">      39</span>                 :<span class="tlaGNC">          83 :     void enqueue(T data) {</span></span>
-<span id="L40"><span class="lineNum">      40</span>                 :<span class="tlaGNC">          83 :         Node* new_node = new Node(data);</span></span>
-<span id="L41"><span class="lineNum">      41</span>                 :<span class="tlaGNC">          83 :         if (is_empty()) {</span></span>
-<span id="L42"><span class="lineNum">      42</span>                 :<span class="tlaGNC">          33 :             head = tail = new_node;</span></span>
-<span id="L43"><span class="lineNum">      43</span>                 :             :         }</span>
-<span id="L44"><span class="lineNum">      44</span>                 :             :         else {</span>
-<span id="L45"><span class="lineNum">      45</span>                 :<span class="tlaGNC">          50 :             tail-&gt;next = new_node;</span></span>
-<span id="L46"><span class="lineNum">      46</span>                 :<span class="tlaGNC">          50 :             tail = new_node;</span></span>
-<span id="L47"><span class="lineNum">      47</span>                 :             :         }</span>
-<span id="L48"><span class="lineNum">      48</span>                 :<span class="tlaGNC">          83 :     }</span></span>
-<span id="L49"><span class="lineNum">      49</span>                 :             : </span>
-<span id="L50"><span class="lineNum">      50</span>                 :<span class="tlaGNC">          46 :     void dequeue() {</span></span>
-<span id="L51"><span class="lineNum">      51</span>                 :<span class="tlaGNC">          46 :         if (is_empty()) {</span></span>
-<span id="L52"><span class="lineNum">      52</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             throw runtime_error(&quot;Queue is empty&quot;);</span></span>
-<span id="L53"><span class="lineNum">      53</span>                 :             :         }</span>
-<span id="L54"><span class="lineNum">      54</span>                 :<span class="tlaGNC tlaBgGNC">          46 :         Node* temp = head;</span></span>
-<span id="L55"><span class="lineNum">      55</span>                 :<span class="tlaGNC">          46 :         head = head-&gt;next;</span></span>
-<span id="L56"><span class="lineNum">      56</span>                 :<span class="tlaGNC">          46 :         delete temp;</span></span>
-<span id="L57"><span class="lineNum">      57</span>                 :<span class="tlaGNC">          46 :         if (head == nullptr) {</span></span>
-<span id="L58"><span class="lineNum">      58</span>                 :<span class="tlaGNC">          16 :             tail = nullptr;</span></span>
-<span id="L59"><span class="lineNum">      59</span>                 :             :         }</span>
-<span id="L60"><span class="lineNum">      60</span>                 :<span class="tlaGNC">          46 :     }</span></span>
-<span id="L61"><span class="lineNum">      61</span>                 :             : </span>
-<span id="L62"><span class="lineNum">      62</span>                 :<span class="tlaGNC">          58 :     T front() const {</span></span>
-<span id="L63"><span class="lineNum">      63</span>                 :<span class="tlaGNC">          58 :         if (is_empty()) {</span></span>
-<span id="L64"><span class="lineNum">      64</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             throw runtime_error(&quot;Queue is empty&quot;);</span></span>
-<span id="L65"><span class="lineNum">      65</span>                 :             :         }</span>
-<span id="L66"><span class="lineNum">      66</span>                 :<span class="tlaGNC tlaBgGNC">          58 :         return head-&gt;data;</span></span>
-<span id="L67"><span class="lineNum">      67</span>                 :             :     }</span>
-<span id="L68"><span class="lineNum">      68</span>                 :             : };</span>
-<span id="L69"><span class="lineNum">      69</span>                 :             : </span>
-<span id="L70"><span class="lineNum">      70</span>                 :             : template &lt;typename T&gt;</span>
-<span id="L71"><span class="lineNum">      71</span>                 :             : class FBT {</span>
-<span id="L72"><span class="lineNum">      72</span>                 :             : private:</span>
-<span id="L73"><span class="lineNum">      73</span>                 :             :     // Node structure for a complete binary tree</span>
-<span id="L74"><span class="lineNum">      74</span>                 :             :     class node {</span>
-<span id="L75"><span class="lineNum">      75</span>                 :             :     public:</span>
-<span id="L76"><span class="lineNum">      76</span>                 :             :         T key;</span>
-<span id="L77"><span class="lineNum">      77</span>                 :             :         node* leftChild;</span>
-<span id="L78"><span class="lineNum">      78</span>                 :             :         node* rightChild;</span>
-<span id="L79"><span class="lineNum">      79</span>                 :             : </span>
-<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaGNC">          14 :         node(T value) : key(value), leftChild(nullptr), rightChild(nullptr) {}</span></span>
-<span id="L81"><span class="lineNum">      81</span>                 :             :     };</span>
-<span id="L82"><span class="lineNum">      82</span>                 :             : </span>
-<span id="L83"><span class="lineNum">      83</span>                 :             :     node* root;</span>
-<span id="L84"><span class="lineNum">      84</span>                 :             :     Queue&lt;node*&gt; waitlist;  // Queue for adding new nodes</span>
-<span id="L85"><span class="lineNum">      85</span>                 :             :     Queue&lt;node*&gt; allNodes;  // Queue for storing all nodes</span>
-<span id="L86"><span class="lineNum">      86</span>                 :             : </span>
-<span id="L87"><span class="lineNum">      87</span>                 :             : public:</span>
-<span id="L88"><span class="lineNum">      88</span>                 :<span class="tlaGNC">           5 :     FBT(T value) {</span></span>
-<span id="L89"><span class="lineNum">      89</span>                 :<span class="tlaGNC">           5 :         root = new node(value);</span></span>
-<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaGNC">           5 :         allNodes.enqueue(root);</span></span>
-<span id="L91"><span class="lineNum">      91</span>                 :<span class="tlaGNC">           5 :         waitlist.enqueue(root);</span></span>
-<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaGNC">           5 :     }</span></span>
-<span id="L93"><span class="lineNum">      93</span>                 :             : </span>
-<span id="L94"><span class="lineNum">      94</span>                 :<span class="tlaGNC">           5 :     ~FBT() {</span></span>
-<span id="L95"><span class="lineNum">      95</span>                 :             :         // Freeing all nodes</span>
-<span id="L96"><span class="lineNum">      96</span>                 :<span class="tlaGNC">           5 :         Queue&lt;node*&gt; tempQueue = allNodes;</span></span>
-<span id="L97"><span class="lineNum">      97</span>                 :<span class="tlaGNC">          24 :         while (!tempQueue.is_empty()) {</span></span>
-<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaGNC">          14 :             node* currentNode = tempQueue.front();</span></span>
-<span id="L99"><span class="lineNum">      99</span>                 :<span class="tlaGNC">          14 :             tempQueue.dequeue();</span></span>
-<span id="L100"><span class="lineNum">     100</span>                 :<span class="tlaGNC">          14 :             delete currentNode;</span></span>
-<span id="L101"><span class="lineNum">     101</span>                 :             :         }</span>
-<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaGNC">           5 :     }</span></span>
-<span id="L103"><span class="lineNum">     103</span>                 :             : </span>
-<span id="L104"><span class="lineNum">     104</span>                 :<span class="tlaGNC">           9 :     void Add(T value) {</span></span>
-<span id="L105"><span class="lineNum">     105</span>                 :             :         // Проверяем, существует ли узел с таким значением</span>
-<span id="L106"><span class="lineNum">     106</span>                 :             :         try {</span>
-<span id="L107"><span class="lineNum">     107</span>                 :<span class="tlaGNC">           9 :             findPlace(value);</span></span>
-<span id="L108"><span class="lineNum">     108</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             return;</span></span>
-<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaGNC tlaBgGNC">           9 :         } catch (const runtime_error&amp;) {</span></span>
-<span id="L110"><span class="lineNum">     110</span>                 :             :             // Узел не найден, продолжаем добавление</span>
-<span id="L111"><span class="lineNum">     111</span>                 :             :         }</span>
-<span id="L112"><span class="lineNum">     112</span>                 :             : </span>
-<span id="L113"><span class="lineNum">     113</span>                 :<span class="tlaGNC">           9 :         if (waitlist.is_empty()) {</span></span>
-<span id="L114"><span class="lineNum">     114</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             throw runtime_error(&quot;The parent node was not found to which a new child node can be added!!!&quot;);</span></span>
-<span id="L115"><span class="lineNum">     115</span>                 :             :         }</span>
-<span id="L116"><span class="lineNum">     116</span>                 :             : </span>
-<span id="L117"><span class="lineNum">     117</span>                 :<span class="tlaGNC tlaBgGNC">           9 :         node* parent = waitlist.front();</span></span>
-<span id="L118"><span class="lineNum">     118</span>                 :<span class="tlaGNC">           9 :         node* newNode = new node(value);</span></span>
-<span id="L119"><span class="lineNum">     119</span>                 :<span class="tlaGNC">           9 :         allNodes.enqueue(newNode);</span></span>
-<span id="L120"><span class="lineNum">     120</span>                 :             : </span>
-<span id="L121"><span class="lineNum">     121</span>                 :<span class="tlaGNC">           9 :         if (parent-&gt;leftChild == nullptr) {</span></span>
-<span id="L122"><span class="lineNum">     122</span>                 :<span class="tlaGNC">           5 :             parent-&gt;leftChild = newNode;</span></span>
-<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaGNC">           4 :         } else if (parent-&gt;rightChild == nullptr) {</span></span>
-<span id="L124"><span class="lineNum">     124</span>                 :<span class="tlaGNC">           4 :             parent-&gt;rightChild = newNode;</span></span>
-<span id="L125"><span class="lineNum">     125</span>                 :<span class="tlaGNC">           4 :             waitlist.dequeue();</span></span>
-<span id="L126"><span class="lineNum">     126</span>                 :             :         } else {</span>
-<span id="L127"><span class="lineNum">     127</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             throw runtime_error(&quot;Parent node already has two children.&quot;);</span></span>
-<span id="L128"><span class="lineNum">     128</span>                 :             :         }</span>
-<span id="L129"><span class="lineNum">     129</span>                 :             : </span>
-<span id="L130"><span class="lineNum">     130</span>                 :<span class="tlaGNC tlaBgGNC">           9 :         waitlist.enqueue(newNode);</span></span>
-<span id="L131"><span class="lineNum">     131</span>                 :             :     }</span>
-<span id="L132"><span class="lineNum">     132</span>                 :             : </span>
-<span id="L133"><span class="lineNum">     133</span>                 :             : </span>
+<span id="L39"><span class="lineNum">      39</span>                 :<span class="tlaGNC">         261 :     bool is_empty() const { return head == nullptr; }</span></span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : </span>
+<span id="L41"><span class="lineNum">      41</span>                 :<span class="tlaGNC">          83 :     void enqueue(T data) {</span></span>
+<span id="L42"><span class="lineNum">      42</span>                 :<span class="tlaGNC">          83 :         Node* new_node = new Node(data);</span></span>
+<span id="L43"><span class="lineNum">      43</span>                 :<span class="tlaGNC">          83 :         if (is_empty()) {</span></span>
+<span id="L44"><span class="lineNum">      44</span>                 :<span class="tlaGNC">          33 :             head = tail = new_node;</span></span>
+<span id="L45"><span class="lineNum">      45</span>                 :             :         }</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             :         else {</span>
+<span id="L47"><span class="lineNum">      47</span>                 :<span class="tlaGNC">          50 :             tail-&gt;next = new_node;</span></span>
+<span id="L48"><span class="lineNum">      48</span>                 :<span class="tlaGNC">          50 :             tail = new_node;</span></span>
+<span id="L49"><span class="lineNum">      49</span>                 :             :         }</span>
+<span id="L50"><span class="lineNum">      50</span>                 :<span class="tlaGNC">          83 :     }</span></span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : </span>
+<span id="L52"><span class="lineNum">      52</span>                 :<span class="tlaGNC">          46 :     void dequeue() {</span></span>
+<span id="L53"><span class="lineNum">      53</span>                 :<span class="tlaGNC">          46 :         if (is_empty()) {</span></span>
+<span id="L54"><span class="lineNum">      54</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             throw runtime_error(&quot;Queue is empty&quot;);</span></span>
+<span id="L55"><span class="lineNum">      55</span>                 :             :         }</span>
+<span id="L56"><span class="lineNum">      56</span>                 :<span class="tlaGNC tlaBgGNC">          46 :         Node* temp = head;</span></span>
+<span id="L57"><span class="lineNum">      57</span>                 :<span class="tlaGNC">          46 :         head = head-&gt;next;</span></span>
+<span id="L58"><span class="lineNum">      58</span>                 :<span class="tlaGNC">          46 :         delete temp;</span></span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaGNC">          46 :         if (head == nullptr) {</span></span>
+<span id="L60"><span class="lineNum">      60</span>                 :<span class="tlaGNC">          16 :             tail = nullptr;</span></span>
+<span id="L61"><span class="lineNum">      61</span>                 :             :         }</span>
+<span id="L62"><span class="lineNum">      62</span>                 :<span class="tlaGNC">          46 :     }</span></span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : </span>
+<span id="L64"><span class="lineNum">      64</span>                 :<span class="tlaGNC">          58 :     T front() const {</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :<span class="tlaGNC">          58 :         if (is_empty()) {</span></span>
+<span id="L66"><span class="lineNum">      66</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             throw runtime_error(&quot;Queue is empty&quot;);</span></span>
+<span id="L67"><span class="lineNum">      67</span>                 :             :         }</span>
+<span id="L68"><span class="lineNum">      68</span>                 :<span class="tlaGNC tlaBgGNC">          58 :         return head-&gt;data;</span></span>
+<span id="L69"><span class="lineNum">      69</span>                 :             :     }</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             : };</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : </span>
+<span id="L72"><span class="lineNum">      72</span>                 :             : template &lt;typename T&gt;</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             : class FBT {</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             : private:</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             :     // Node structure for a complete binary tree</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             :     class node {</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             :     public:</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             :         T key;</span>
+<span id="L79"><span class="lineNum">      79</span>                 :             :         node* leftChild;</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             :         node* rightChild;</span>
+<span id="L81"><span class="lineNum">      81</span>                 :             : </span>
+<span id="L82"><span class="lineNum">      82</span>                 :<span class="tlaGNC">          14 :         node(T value) : key(value), leftChild(nullptr), rightChild(nullptr) {}</span></span>
+<span id="L83"><span class="lineNum">      83</span>                 :             :     };</span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : </span>
+<span id="L85"><span class="lineNum">      85</span>                 :             :     node* root;</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             :     Queue&lt;node*&gt; waitlist;  // Queue for adding new nodes</span>
+<span id="L87"><span class="lineNum">      87</span>                 :             :     Queue&lt;node*&gt; allNodes;  // Queue for storing all nodes</span>
+<span id="L88"><span class="lineNum">      88</span>                 :             : </span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : public:</span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaGNC">           5 :     FBT(T value) {</span></span>
+<span id="L91"><span class="lineNum">      91</span>                 :<span class="tlaGNC">           5 :         root = new node(value);</span></span>
+<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaGNC">           5 :         allNodes.enqueue(root);</span></span>
+<span id="L93"><span class="lineNum">      93</span>                 :<span class="tlaGNC">           5 :         waitlist.enqueue(root);</span></span>
+<span id="L94"><span class="lineNum">      94</span>                 :<span class="tlaGNC">           5 :     }</span></span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : </span>
+<span id="L96"><span class="lineNum">      96</span>                 :<span class="tlaGNC">           5 :     ~FBT() {</span></span>
+<span id="L97"><span class="lineNum">      97</span>                 :             :         // Freeing all nodes</span>
+<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaGNC">           5 :         Queue&lt;node*&gt; tempQueue = allNodes;</span></span>
+<span id="L99"><span class="lineNum">      99</span>                 :<span class="tlaGNC">          24 :         while (!tempQueue.is_empty()) {</span></span>
+<span id="L100"><span class="lineNum">     100</span>                 :<span class="tlaGNC">          14 :             node* currentNode = tempQueue.front();</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :<span class="tlaGNC">          14 :             tempQueue.dequeue();</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaGNC">          14 :             delete currentNode;</span></span>
+<span id="L103"><span class="lineNum">     103</span>                 :             :         }</span>
+<span id="L104"><span class="lineNum">     104</span>                 :<span class="tlaGNC">           5 :     }</span></span>
+<span id="L105"><span class="lineNum">     105</span>                 :             : </span>
+<span id="L106"><span class="lineNum">     106</span>                 :<span class="tlaGNC">           9 :     void Add(T value) {</span></span>
+<span id="L107"><span class="lineNum">     107</span>                 :             :         // Проверяем, существует ли узел с таким значением</span>
+<span id="L108"><span class="lineNum">     108</span>                 :             :         try {</span>
+<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaGNC">           9 :             findPlace(value);</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             return;</span></span>
+<span id="L111"><span class="lineNum">     111</span>                 :<span class="tlaGNC tlaBgGNC">           9 :         } catch (const runtime_error&amp;) {</span></span>
+<span id="L112"><span class="lineNum">     112</span>                 :             :             // Узел не найден, продолжаем добавление</span>
+<span id="L113"><span class="lineNum">     113</span>                 :             :         }</span>
+<span id="L114"><span class="lineNum">     114</span>                 :             : </span>
+<span id="L115"><span class="lineNum">     115</span>                 :<span class="tlaGNC">           9 :         if (waitlist.is_empty()) {</span></span>
+<span id="L116"><span class="lineNum">     116</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             throw runtime_error(&quot;The parent node was not found to which a new child node can be added!!!&quot;);</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :             :         }</span>
+<span id="L118"><span class="lineNum">     118</span>                 :             : </span>
+<span id="L119"><span class="lineNum">     119</span>                 :<span class="tlaGNC tlaBgGNC">           9 :         node* parent = waitlist.front();</span></span>
+<span id="L120"><span class="lineNum">     120</span>                 :<span class="tlaGNC">           9 :         node* newNode = new node(value);</span></span>
+<span id="L121"><span class="lineNum">     121</span>                 :<span class="tlaGNC">           9 :         allNodes.enqueue(newNode);</span></span>
+<span id="L122"><span class="lineNum">     122</span>                 :             : </span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaGNC">           9 :         if (parent-&gt;leftChild == nullptr) {</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :<span class="tlaGNC">           5 :             parent-&gt;leftChild = newNode;</span></span>
+<span id="L125"><span class="lineNum">     125</span>                 :<span class="tlaGNC">           4 :         } else if (parent-&gt;rightChild == nullptr) {</span></span>
+<span id="L126"><span class="lineNum">     126</span>                 :<span class="tlaGNC">           4 :             parent-&gt;rightChild = newNode;</span></span>
+<span id="L127"><span class="lineNum">     127</span>                 :<span class="tlaGNC">           4 :             waitlist.dequeue();</span></span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :         } else {</span>
+<span id="L129"><span class="lineNum">     129</span>                 :<span class="tlaUNC tlaBgUNC">           0 :             throw runtime_error(&quot;Parent node already has two children.&quot;);</span></span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :         }</span>
+<span id="L131"><span class="lineNum">     131</span>                 :             : </span>
+<span id="L132"><span class="lineNum">     132</span>                 :<span class="tlaGNC tlaBgGNC">           9 :         waitlist.enqueue(newNode);</span></span>
+<span id="L133"><span class="lineNum">     133</span>                 :             :     }</span>
 <span id="L134"><span class="lineNum">     134</span>                 :             : </span>
-<span id="L135"><span class="lineNum">     135</span>                 :             :     void PrintNodes() {</span>
-<span id="L136"><span class="lineNum">     136</span>                 :             :         Queue&lt;node*&gt; tempQueue = allNodes;</span>
-<span id="L137"><span class="lineNum">     137</span>                 :             :         while (!tempQueue.is_empty()) {</span>
-<span id="L138"><span class="lineNum">     138</span>                 :             :             node* currentNode = tempQueue.front();</span>
-<span id="L139"><span class="lineNum">     139</span>                 :             :             cout &lt;&lt; currentNode-&gt;key &lt;&lt; &quot; &quot;;</span>
-<span id="L140"><span class="lineNum">     140</span>                 :             :             tempQueue.dequeue();</span>
-<span id="L141"><span class="lineNum">     141</span>                 :             :         }</span>
-<span id="L142"><span class="lineNum">     142</span>                 :             :         cout &lt;&lt; &quot;\n&quot;;</span>
-<span id="L143"><span class="lineNum">     143</span>                 :             :     }</span>
-<span id="L144"><span class="lineNum">     144</span>                 :             : </span>
-<span id="L145"><span class="lineNum">     145</span>                 :             :     void PrintTree() {</span>
-<span id="L146"><span class="lineNum">     146</span>                 :             :         int totalNodes = 0;</span>
-<span id="L147"><span class="lineNum">     147</span>                 :             :         Queue&lt;node*&gt; tempQueue = allNodes;  // Копируем очередь</span>
-<span id="L148"><span class="lineNum">     148</span>                 :             : </span>
-<span id="L149"><span class="lineNum">     149</span>                 :             :         while (!tempQueue.is_empty()) {</span>
-<span id="L150"><span class="lineNum">     150</span>                 :             :             tempQueue.dequeue();</span>
-<span id="L151"><span class="lineNum">     151</span>                 :             :             totalNodes++;</span>
-<span id="L152"><span class="lineNum">     152</span>                 :             :         }</span>
-<span id="L153"><span class="lineNum">     153</span>                 :             : </span>
-<span id="L154"><span class="lineNum">     154</span>                 :             :         int level = 0;</span>
-<span id="L155"><span class="lineNum">     155</span>                 :             :         int printedNodes = 0;</span>
-<span id="L156"><span class="lineNum">     156</span>                 :             :         int maxNodesAtLevel = pow(2, floor(log2(totalNodes)) + 1);  </span>
-<span id="L157"><span class="lineNum">     157</span>                 :             : </span>
-<span id="L158"><span class="lineNum">     158</span>                 :             :         tempQueue = allNodes;</span>
+<span id="L135"><span class="lineNum">     135</span>                 :             : </span>
+<span id="L136"><span class="lineNum">     136</span>                 :             : </span>
+<span id="L137"><span class="lineNum">     137</span>                 :             :     void PrintNodes() {</span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :         Queue&lt;node*&gt; tempQueue = allNodes;</span>
+<span id="L139"><span class="lineNum">     139</span>                 :             :         while (!tempQueue.is_empty()) {</span>
+<span id="L140"><span class="lineNum">     140</span>                 :             :             node* currentNode = tempQueue.front();</span>
+<span id="L141"><span class="lineNum">     141</span>                 :             :             cout &lt;&lt; currentNode-&gt;key &lt;&lt; &quot; &quot;;</span>
+<span id="L142"><span class="lineNum">     142</span>                 :             :             tempQueue.dequeue();</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             :         }</span>
+<span id="L144"><span class="lineNum">     144</span>                 :             :         cout &lt;&lt; &quot;\n&quot;;</span>
+<span id="L145"><span class="lineNum">     145</span>                 :             :     }</span>
+<span id="L146"><span class="lineNum">     146</span>                 :             : </span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :     void PrintTree() {</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             :         int totalNodes = 0;</span>
+<span id="L149"><span class="lineNum">     149</span>                 :             :         Queue&lt;node*&gt; tempQueue = allNodes;  // Копируем очередь</span>
+<span id="L150"><span class="lineNum">     150</span>                 :             : </span>
+<span id="L151"><span class="lineNum">     151</span>                 :             :         while (!tempQueue.is_empty()) {</span>
+<span id="L152"><span class="lineNum">     152</span>                 :             :             tempQueue.dequeue();</span>
+<span id="L153"><span class="lineNum">     153</span>                 :             :             totalNodes++;</span>
+<span id="L154"><span class="lineNum">     154</span>                 :             :         }</span>
+<span id="L155"><span class="lineNum">     155</span>                 :             : </span>
+<span id="L156"><span class="lineNum">     156</span>                 :             :         int level = 0;</span>
+<span id="L157"><span class="lineNum">     157</span>                 :             :         int printedNodes = 0;</span>
+<span id="L158"><span class="lineNum">     158</span>                 :             :         int maxNodesAtLevel = pow(2, floor(log2(totalNodes)) + 1);  </span>
 <span id="L159"><span class="lineNum">     159</span>                 :             : </span>
-<span id="L160"><span class="lineNum">     160</span>                 :             :         while (printedNodes &lt; totalNodes) {</span>
-<span id="L161"><span class="lineNum">     161</span>                 :             :             int nodesInLevel = pow(2, level);</span>
-<span id="L162"><span class="lineNum">     162</span>                 :             :             level++;</span>
-<span id="L163"><span class="lineNum">     163</span>                 :             : </span>
-<span id="L164"><span class="lineNum">     164</span>                 :             :             int leadingSpaces = maxNodesAtLevel / nodesInLevel - 1;</span>
-<span id="L165"><span class="lineNum">     165</span>                 :             :             int spacingBetweenNodes = maxNodesAtLevel / nodesInLevel - 1;</span>
-<span id="L166"><span class="lineNum">     166</span>                 :             :             string leadSep(leadingSpaces + 3, ' ');</span>
-<span id="L167"><span class="lineNum">     167</span>                 :             :             string endSep(spacingBetweenNodes, ' ');</span>
-<span id="L168"><span class="lineNum">     168</span>                 :             : </span>
-<span id="L169"><span class="lineNum">     169</span>                 :             :             // Печатаем узлы на текущем уровне</span>
-<span id="L170"><span class="lineNum">     170</span>                 :             :             for (int i = 0; i &lt; nodesInLevel &amp;&amp; printedNodes &lt; totalNodes; i++) {</span>
-<span id="L171"><span class="lineNum">     171</span>                 :             :                 cout &lt;&lt; leadSep &lt;&lt; tempQueue.front()-&gt;key &lt;&lt; endSep;</span>
-<span id="L172"><span class="lineNum">     172</span>                 :             :                 tempQueue.dequeue();</span>
-<span id="L173"><span class="lineNum">     173</span>                 :             :                 printedNodes++;</span>
-<span id="L174"><span class="lineNum">     174</span>                 :             :             }</span>
-<span id="L175"><span class="lineNum">     175</span>                 :             : </span>
-<span id="L176"><span class="lineNum">     176</span>                 :             :             cout &lt;&lt; &quot;\n&quot;;</span>
-<span id="L177"><span class="lineNum">     177</span>                 :             :         }</span>
-<span id="L178"><span class="lineNum">     178</span>                 :             :     }</span>
-<span id="L179"><span class="lineNum">     179</span>                 :             : </span>
-<span id="L180"><span class="lineNum">     180</span>                 :<span class="tlaGNC">          16 :     node* findPlace(T value) {</span></span>
-<span id="L181"><span class="lineNum">     181</span>                 :<span class="tlaGNC">          16 :         Queue&lt;node*&gt; tempQueue = allNodes;</span></span>
-<span id="L182"><span class="lineNum">     182</span>                 :             : </span>
-<span id="L183"><span class="lineNum">     183</span>                 :<span class="tlaGNC">          40 :         while (!tempQueue.is_empty()) {</span></span>
-<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaGNC">          30 :             node* currentNode = tempQueue.front();</span></span>
-<span id="L185"><span class="lineNum">     185</span>                 :<span class="tlaGNC">          30 :             if (currentNode-&gt;key == value) {</span></span>
-<span id="L186"><span class="lineNum">     186</span>                 :<span class="tlaGNC">           6 :                 return currentNode;</span></span>
-<span id="L187"><span class="lineNum">     187</span>                 :             :             }</span>
-<span id="L188"><span class="lineNum">     188</span>                 :<span class="tlaGNC">          24 :             tempQueue.dequeue();</span></span>
-<span id="L189"><span class="lineNum">     189</span>                 :             :         }</span>
-<span id="L190"><span class="lineNum">     190</span>                 :             : </span>
-<span id="L191"><span class="lineNum">     191</span>                 :<span class="tlaGNC">          10 :         throw runtime_error(&quot;Value was not found!!!&quot;);</span></span>
-<span id="L192"><span class="lineNum">     192</span>                 :             :         return nullptr;</span>
-<span id="L193"><span class="lineNum">     193</span>                 :<span class="tlaGNC">          16 :     }</span></span>
-<span id="L194"><span class="lineNum">     194</span>                 :             : </span>
-<span id="L195"><span class="lineNum">     195</span>                 :<span class="tlaGNC">           2 :     bool isFull() {</span></span>
-<span id="L196"><span class="lineNum">     196</span>                 :<span class="tlaGNC">           2 :         Queue&lt;node*&gt; tempQueue = allNodes;</span></span>
-<span id="L197"><span class="lineNum">     197</span>                 :             : </span>
-<span id="L198"><span class="lineNum">     198</span>                 :<span class="tlaGNC">           6 :         while (!tempQueue.is_empty()) {</span></span>
-<span id="L199"><span class="lineNum">     199</span>                 :<span class="tlaGNC">           5 :             node* currentNode = tempQueue.front();</span></span>
-<span id="L200"><span class="lineNum">     200</span>                 :<span class="tlaGNC">           5 :             if ((currentNode-&gt;leftChild == nullptr &amp;&amp; currentNode-&gt;rightChild != nullptr) ||</span></span>
-<span id="L201"><span class="lineNum">     201</span>                 :<span class="tlaGNC">           5 :                 (currentNode-&gt;leftChild != nullptr &amp;&amp; currentNode-&gt;rightChild == nullptr)) {</span></span>
-<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaGNC">           1 :                 return false;</span></span>
-<span id="L203"><span class="lineNum">     203</span>                 :             :             }</span>
-<span id="L204"><span class="lineNum">     204</span>                 :<span class="tlaGNC">           4 :             tempQueue.dequeue();</span></span>
-<span id="L205"><span class="lineNum">     205</span>                 :             :         }</span>
-<span id="L206"><span class="lineNum">     206</span>                 :<span class="tlaGNC">           1 :         return true;</span></span>
-<span id="L207"><span class="lineNum">     207</span>                 :<span class="tlaGNC">           2 :     }</span></span>
-<span id="L208"><span class="lineNum">     208</span>                 :             : </span>
-<span id="L209"><span class="lineNum">     209</span>                 :             : </span>
+<span id="L160"><span class="lineNum">     160</span>                 :             :         tempQueue = allNodes;</span>
+<span id="L161"><span class="lineNum">     161</span>                 :             : </span>
+<span id="L162"><span class="lineNum">     162</span>                 :             :         while (printedNodes &lt; totalNodes) {</span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :             int nodesInLevel = pow(2, level);</span>
+<span id="L164"><span class="lineNum">     164</span>                 :             :             level++;</span>
+<span id="L165"><span class="lineNum">     165</span>                 :             : </span>
+<span id="L166"><span class="lineNum">     166</span>                 :             :             int leadingSpaces = maxNodesAtLevel / nodesInLevel - 1;</span>
+<span id="L167"><span class="lineNum">     167</span>                 :             :             int spacingBetweenNodes = maxNodesAtLevel / nodesInLevel - 1;</span>
+<span id="L168"><span class="lineNum">     168</span>                 :             :             string leadSep(leadingSpaces + 3, ' ');</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             :             string endSep(spacingBetweenNodes, ' ');</span>
+<span id="L170"><span class="lineNum">     170</span>                 :             : </span>
+<span id="L171"><span class="lineNum">     171</span>                 :             :             // Печатаем узлы на текущем уровне</span>
+<span id="L172"><span class="lineNum">     172</span>                 :             :             for (int i = 0; i &lt; nodesInLevel &amp;&amp; printedNodes &lt; totalNodes; i++) {</span>
+<span id="L173"><span class="lineNum">     173</span>                 :             :                 cout &lt;&lt; leadSep &lt;&lt; tempQueue.front()-&gt;key &lt;&lt; endSep;</span>
+<span id="L174"><span class="lineNum">     174</span>                 :             :                 tempQueue.dequeue();</span>
+<span id="L175"><span class="lineNum">     175</span>                 :             :                 printedNodes++;</span>
+<span id="L176"><span class="lineNum">     176</span>                 :             :             }</span>
+<span id="L177"><span class="lineNum">     177</span>                 :             : </span>
+<span id="L178"><span class="lineNum">     178</span>                 :             :             cout &lt;&lt; &quot;\n&quot;;</span>
+<span id="L179"><span class="lineNum">     179</span>                 :             :         }</span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :     }</span>
+<span id="L181"><span class="lineNum">     181</span>                 :             : </span>
+<span id="L182"><span class="lineNum">     182</span>                 :<span class="tlaGNC">          16 :     node* findPlace(T value) {</span></span>
+<span id="L183"><span class="lineNum">     183</span>                 :<span class="tlaGNC">          16 :         Queue&lt;node*&gt; tempQueue = allNodes;</span></span>
+<span id="L184"><span class="lineNum">     184</span>                 :             : </span>
+<span id="L185"><span class="lineNum">     185</span>                 :<span class="tlaGNC">          40 :         while (!tempQueue.is_empty()) {</span></span>
+<span id="L186"><span class="lineNum">     186</span>                 :<span class="tlaGNC">          30 :             node* currentNode = tempQueue.front();</span></span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaGNC">          30 :             if (currentNode-&gt;key == value) {</span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :<span class="tlaGNC">           6 :                 return currentNode;</span></span>
+<span id="L189"><span class="lineNum">     189</span>                 :             :             }</span>
+<span id="L190"><span class="lineNum">     190</span>                 :<span class="tlaGNC">          24 :             tempQueue.dequeue();</span></span>
+<span id="L191"><span class="lineNum">     191</span>                 :             :         }</span>
+<span id="L192"><span class="lineNum">     192</span>                 :             : </span>
+<span id="L193"><span class="lineNum">     193</span>                 :<span class="tlaGNC">          10 :         throw runtime_error(&quot;Value was not found!!!&quot;);</span></span>
+<span id="L194"><span class="lineNum">     194</span>                 :             :         return nullptr;</span>
+<span id="L195"><span class="lineNum">     195</span>                 :<span class="tlaGNC">          16 :     }</span></span>
+<span id="L196"><span class="lineNum">     196</span>                 :             : </span>
+<span id="L197"><span class="lineNum">     197</span>                 :<span class="tlaGNC">           2 :     bool isFull() {</span></span>
+<span id="L198"><span class="lineNum">     198</span>                 :<span class="tlaGNC">           2 :         Queue&lt;node*&gt; tempQueue = allNodes;</span></span>
+<span id="L199"><span class="lineNum">     199</span>                 :             : </span>
+<span id="L200"><span class="lineNum">     200</span>                 :<span class="tlaGNC">           6 :         while (!tempQueue.is_empty()) {</span></span>
+<span id="L201"><span class="lineNum">     201</span>                 :<span class="tlaGNC">           5 :             node* currentNode = tempQueue.front();</span></span>
+<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaGNC">           5 :             if ((currentNode-&gt;leftChild == nullptr &amp;&amp; currentNode-&gt;rightChild != nullptr) ||</span></span>
+<span id="L203"><span class="lineNum">     203</span>                 :<span class="tlaGNC">           5 :                 (currentNode-&gt;leftChild != nullptr &amp;&amp; currentNode-&gt;rightChild == nullptr)) {</span></span>
+<span id="L204"><span class="lineNum">     204</span>                 :<span class="tlaGNC">           1 :                 return false;</span></span>
+<span id="L205"><span class="lineNum">     205</span>                 :             :             }</span>
+<span id="L206"><span class="lineNum">     206</span>                 :<span class="tlaGNC">           4 :             tempQueue.dequeue();</span></span>
+<span id="L207"><span class="lineNum">     207</span>                 :             :         }</span>
+<span id="L208"><span class="lineNum">     208</span>                 :<span class="tlaGNC">           1 :         return true;</span></span>
+<span id="L209"><span class="lineNum">     209</span>                 :<span class="tlaGNC">           2 :     }</span></span>
 <span id="L210"><span class="lineNum">     210</span>                 :             : </span>
-<span id="L211"><span class="lineNum">     211</span>                 :             :     // void load_from_file(const string&amp; filename, const string&amp; name_structure) {</span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :     void serialization(const string&amp; filename) const{</span>
 <span id="L212"><span class="lineNum">     212</span>                 :             : </span>
-<span id="L213"><span class="lineNum">     213</span>                 :             :     //     ifstream file(filename);</span>
-<span id="L214"><span class="lineNum">     214</span>                 :             :         </span>
-<span id="L215"><span class="lineNum">     215</span>                 :             :     //     if (file.is_open()) {</span>
-<span id="L216"><span class="lineNum">     216</span>                 :             : </span>
-<span id="L217"><span class="lineNum">     217</span>                 :             :     //         string line;</span>
-<span id="L218"><span class="lineNum">     218</span>                 :             :     //         bool structure_found = false;</span>
-<span id="L219"><span class="lineNum">     219</span>                 :             : </span>
-<span id="L220"><span class="lineNum">     220</span>                 :             :     //         while (getline(file, line)) {</span>
-<span id="L221"><span class="lineNum">     221</span>                 :             : </span>
-<span id="L222"><span class="lineNum">     222</span>                 :             :     //             if (line.find(name_structure + &quot;:&quot;) != string::npos) {</span>
+<span id="L213"><span class="lineNum">     213</span>                 :             :         ofstream file(filename, ios::binary);</span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :         if (!file.is_open()) {</span>
+<span id="L215"><span class="lineNum">     215</span>                 :             :             cerr &lt;&lt; &quot;Error opening file for serialization!&quot; &lt;&lt; endl;</span>
+<span id="L216"><span class="lineNum">     216</span>                 :             :             return;</span>
+<span id="L217"><span class="lineNum">     217</span>                 :             :         }</span>
+<span id="L218"><span class="lineNum">     218</span>                 :             : </span>
+<span id="L219"><span class="lineNum">     219</span>                 :             :         Queue&lt;node*&gt; temp_queue = allNodes; </span>
+<span id="L220"><span class="lineNum">     220</span>                 :             :         while (!temp_queue.is_empty()) {</span>
+<span id="L221"><span class="lineNum">     221</span>                 :             :             node* currentNode = temp_queue.front();</span>
+<span id="L222"><span class="lineNum">     222</span>                 :             :             temp_queue.dequeue();</span>
 <span id="L223"><span class="lineNum">     223</span>                 :             : </span>
-<span id="L224"><span class="lineNum">     224</span>                 :             :     //                 structure_found = true; </span>
-<span id="L225"><span class="lineNum">     225</span>                 :             :     //                 size_t pos = line.find(':');</span>
-<span id="L226"><span class="lineNum">     226</span>                 :             :     //                 string values = line.substr(pos + 1); </span>
-<span id="L227"><span class="lineNum">     227</span>                 :             :     //                 stringstream ss(values);</span>
-<span id="L228"><span class="lineNum">     228</span>                 :             :     //                 string value;</span>
-<span id="L229"><span class="lineNum">     229</span>                 :             : </span>
-<span id="L230"><span class="lineNum">     230</span>                 :             :     //                 // Парсим значения, разделенные запятыми</span>
-<span id="L231"><span class="lineNum">     231</span>                 :             :     //                 while (getline(ss, value, ',')) {</span>
-<span id="L232"><span class="lineNum">     232</span>                 :             :     //                     int key = stoi(value); </span>
-<span id="L233"><span class="lineNum">     233</span>                 :             :     //                     try {</span>
-<span id="L234"><span class="lineNum">     234</span>                 :             :     //                         Add(key); // Добавляем узел в дерево</span>
-<span id="L235"><span class="lineNum">     235</span>                 :             :     //                     } catch (const runtime_error&amp; e) {</span>
-<span id="L236"><span class="lineNum">     236</span>                 :             :     //                         cerr &lt;&lt; &quot;Error when adding a value &quot; &lt;&lt; key &lt;&lt; &quot;: &quot; &lt;&lt; e.what() &lt;&lt; endl;</span>
-<span id="L237"><span class="lineNum">     237</span>                 :             :     //                     }</span>
-<span id="L238"><span class="lineNum">     238</span>                 :             :     //                 }</span>
-<span id="L239"><span class="lineNum">     239</span>                 :             :     //                 break; </span>
-<span id="L240"><span class="lineNum">     240</span>                 :             :     //             }</span>
-<span id="L241"><span class="lineNum">     241</span>                 :             :     //         }</span>
+<span id="L224"><span class="lineNum">     224</span>                 :             :             file.write(reinterpret_cast&lt;char*&gt;(&amp;currentNode-&gt;key), sizeof(currentNode-&gt;key));</span>
+<span id="L225"><span class="lineNum">     225</span>                 :             : </span>
+<span id="L226"><span class="lineNum">     226</span>                 :             :             bool hasLeftChild = (currentNode-&gt;leftChild != nullptr);</span>
+<span id="L227"><span class="lineNum">     227</span>                 :             :             bool hasRightChild = (currentNode-&gt;rightChild != nullptr);</span>
+<span id="L228"><span class="lineNum">     228</span>                 :             :             file.write(reinterpret_cast&lt;char*&gt;(&amp;hasLeftChild), sizeof(hasLeftChild));</span>
+<span id="L229"><span class="lineNum">     229</span>                 :             :             file.write(reinterpret_cast&lt;char*&gt;(&amp;hasRightChild), sizeof(hasRightChild));</span>
+<span id="L230"><span class="lineNum">     230</span>                 :             :         }</span>
+<span id="L231"><span class="lineNum">     231</span>                 :             :         cout &lt;&lt; &quot;Serialization complete.&quot; &lt;&lt; &quot;\n&quot;;</span>
+<span id="L232"><span class="lineNum">     232</span>                 :             :         file.close();</span>
+<span id="L233"><span class="lineNum">     233</span>                 :             :     }</span>
+<span id="L234"><span class="lineNum">     234</span>                 :             : </span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :     void deserialization(const string&amp; filename){</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             : </span>
+<span id="L237"><span class="lineNum">     237</span>                 :             :             ifstream file(filename, ios::binary);</span>
+<span id="L238"><span class="lineNum">     238</span>                 :             :             if (!file.is_open()) {</span>
+<span id="L239"><span class="lineNum">     239</span>                 :             :                 cerr &lt;&lt; &quot;Error opening file for deserialization!&quot; &lt;&lt; endl;</span>
+<span id="L240"><span class="lineNum">     240</span>                 :             :                 return;</span>
+<span id="L241"><span class="lineNum">     241</span>                 :             :             }</span>
 <span id="L242"><span class="lineNum">     242</span>                 :             : </span>
-<span id="L243"><span class="lineNum">     243</span>                 :             :     //         file.close();</span>
-<span id="L244"><span class="lineNum">     244</span>                 :             :     //     } else {</span>
-<span id="L245"><span class="lineNum">     245</span>                 :             :     //         cerr &lt;&lt; &quot;Error opening the file for reading.\n&quot;;</span>
-<span id="L246"><span class="lineNum">     246</span>                 :             :     //     }</span>
-<span id="L247"><span class="lineNum">     247</span>                 :             :     // }</span>
-<span id="L248"><span class="lineNum">     248</span>                 :             : </span>
-<span id="L249"><span class="lineNum">     249</span>                 :             :     // void save_to_file(const string&amp; filename, const string&amp; name_structure) const {</span>
-<span id="L250"><span class="lineNum">     250</span>                 :             : </span>
-<span id="L251"><span class="lineNum">     251</span>                 :             :     //     ifstream read_file(filename);</span>
-<span id="L252"><span class="lineNum">     252</span>                 :             :     //     Myvector&lt;string&gt; lines; // Используем вектор для хранения строк</span>
-<span id="L253"><span class="lineNum">     253</span>                 :             :     //     string line;</span>
-<span id="L254"><span class="lineNum">     254</span>                 :             :     //     bool structure_found = false;</span>
-<span id="L255"><span class="lineNum">     255</span>                 :             : </span>
-<span id="L256"><span class="lineNum">     256</span>                 :             :     //     if (read_file.is_open()) {</span>
-<span id="L257"><span class="lineNum">     257</span>                 :             :     //         while (getline(read_file, line)) {</span>
-<span id="L258"><span class="lineNum">     258</span>                 :             :     //             lines.MPUSH(line); </span>
-<span id="L259"><span class="lineNum">     259</span>                 :             :     //         }</span>
-<span id="L260"><span class="lineNum">     260</span>                 :             :     //         read_file.close();</span>
-<span id="L261"><span class="lineNum">     261</span>                 :             :     //     } else {</span>
-<span id="L262"><span class="lineNum">     262</span>                 :             :     //         cerr &lt;&lt; &quot;Error opening the file for reading.\n&quot;;</span>
-<span id="L263"><span class="lineNum">     263</span>                 :             :     //         return;</span>
-<span id="L264"><span class="lineNum">     264</span>                 :             :     //     }</span>
-<span id="L265"><span class="lineNum">     265</span>                 :             : </span>
-<span id="L266"><span class="lineNum">     266</span>                 :             :     //     // Открываем файл для записи</span>
-<span id="L267"><span class="lineNum">     267</span>                 :             :     //     ofstream write_file(filename);</span>
-<span id="L268"><span class="lineNum">     268</span>                 :             :     //     if (!write_file.is_open()) {</span>
-<span id="L269"><span class="lineNum">     269</span>                 :             :     //         cerr &lt;&lt; &quot;Error opening the file for writing.\n&quot;;</span>
-<span id="L270"><span class="lineNum">     270</span>                 :             :     //         return;</span>
-<span id="L271"><span class="lineNum">     271</span>                 :             :     //     }</span>
-<span id="L272"><span class="lineNum">     272</span>                 :             : </span>
-<span id="L273"><span class="lineNum">     273</span>                 :             :     //     for (const auto&amp; existing_line : lines) {</span>
-<span id="L274"><span class="lineNum">     274</span>                 :             :     //         if (existing_line.find(name_structure + &quot;:&quot;) == 0) {</span>
-<span id="L275"><span class="lineNum">     275</span>                 :             :     //             structure_found = true;</span>
-<span id="L276"><span class="lineNum">     276</span>                 :             : </span>
-<span id="L277"><span class="lineNum">     277</span>                 :             :     //             // Заменяем строку структуры новыми значениями</span>
-<span id="L278"><span class="lineNum">     278</span>                 :             :     //             write_file &lt;&lt; name_structure &lt;&lt; &quot;: &quot;;</span>
-<span id="L279"><span class="lineNum">     279</span>                 :             :     //             Queue&lt;node*&gt; tempQueue = allNodes; // Используем очередь для сохранения узлов</span>
-<span id="L280"><span class="lineNum">     280</span>                 :             : </span>
-<span id="L281"><span class="lineNum">     281</span>                 :             :     //             while (!tempQueue.is_empty()) {</span>
-<span id="L282"><span class="lineNum">     282</span>                 :             :     //                 node* currentNode = tempQueue.front();</span>
-<span id="L283"><span class="lineNum">     283</span>                 :             :     //                 tempQueue.dequeue();</span>
-<span id="L284"><span class="lineNum">     284</span>                 :             : </span>
-<span id="L285"><span class="lineNum">     285</span>                 :             :     //                 // Сохраняем ключ узла</span>
-<span id="L286"><span class="lineNum">     286</span>                 :             :     //                 write_file &lt;&lt; currentNode-&gt;key;</span>
-<span id="L287"><span class="lineNum">     287</span>                 :             :     //                 if (!tempQueue.is_empty()) {</span>
-<span id="L288"><span class="lineNum">     288</span>                 :             :     //                     write_file &lt;&lt; &quot;, &quot;; </span>
-<span id="L289"><span class="lineNum">     289</span>                 :             :     //                 }</span>
-<span id="L290"><span class="lineNum">     290</span>                 :             :     //             }</span>
-<span id="L291"><span class="lineNum">     291</span>                 :             :     //             write_file &lt;&lt; &quot;\n&quot;; </span>
-<span id="L292"><span class="lineNum">     292</span>                 :             :     //         } else {</span>
-<span id="L293"><span class="lineNum">     293</span>                 :             :     //             write_file &lt;&lt; existing_line &lt;&lt; &quot;\n&quot;; </span>
-<span id="L294"><span class="lineNum">     294</span>                 :             :     //         }</span>
-<span id="L295"><span class="lineNum">     295</span>                 :             :     //     }</span>
+<span id="L243"><span class="lineNum">     243</span>                 :             :             // Очищаем текущее дерево</span>
+<span id="L244"><span class="lineNum">     244</span>                 :             :             while (!waitlist.is_empty()){</span>
+<span id="L245"><span class="lineNum">     245</span>                 :             :                 waitlist.dequeue();</span>
+<span id="L246"><span class="lineNum">     246</span>                 :             :             }</span>
+<span id="L247"><span class="lineNum">     247</span>                 :             :             while (!allNodes.is_empty()){</span>
+<span id="L248"><span class="lineNum">     248</span>                 :             :                 node* currentNode = allNodes.front();</span>
+<span id="L249"><span class="lineNum">     249</span>                 :             :                 allNodes.dequeue();</span>
+<span id="L250"><span class="lineNum">     250</span>                 :             :                 delete currentNode;</span>
+<span id="L251"><span class="lineNum">     251</span>                 :             :             }</span>
+<span id="L252"><span class="lineNum">     252</span>                 :             :             root = nullptr;</span>
+<span id="L253"><span class="lineNum">     253</span>                 :             : </span>
+<span id="L254"><span class="lineNum">     254</span>                 :             :             Queue&lt;node*&gt; tempQueue; // Очередь для восстановления дерева</span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :             int key;</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             :             while (file.read(reinterpret_cast&lt;char*&gt;(&amp;key), sizeof(key))) {</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             :                 bool hasLeftChild, hasRightChild;</span>
+<span id="L258"><span class="lineNum">     258</span>                 :             :                 file.read(reinterpret_cast&lt;char*&gt;(&amp;hasLeftChild), sizeof(hasLeftChild));</span>
+<span id="L259"><span class="lineNum">     259</span>                 :             :                 file.read(reinterpret_cast&lt;char*&gt;(&amp;hasRightChild), sizeof(hasRightChild));</span>
+<span id="L260"><span class="lineNum">     260</span>                 :             : </span>
+<span id="L261"><span class="lineNum">     261</span>                 :             :                 node* newNode = new node(key);</span>
+<span id="L262"><span class="lineNum">     262</span>                 :             :                 allNodes.enqueue(newNode);</span>
+<span id="L263"><span class="lineNum">     263</span>                 :             : </span>
+<span id="L264"><span class="lineNum">     264</span>                 :             :                 if (root == nullptr) {</span>
+<span id="L265"><span class="lineNum">     265</span>                 :             :                     root = newNode; // Устанавливаем корень дерева</span>
+<span id="L266"><span class="lineNum">     266</span>                 :             :                 } </span>
+<span id="L267"><span class="lineNum">     267</span>                 :             :                 else {</span>
+<span id="L268"><span class="lineNum">     268</span>                 :             :                     node* parent = tempQueue.front();</span>
+<span id="L269"><span class="lineNum">     269</span>                 :             :                     if (parent-&gt;leftChild == nullptr) {</span>
+<span id="L270"><span class="lineNum">     270</span>                 :             :                         parent-&gt;leftChild = newNode;</span>
+<span id="L271"><span class="lineNum">     271</span>                 :             :                     } </span>
+<span id="L272"><span class="lineNum">     272</span>                 :             :                     else if (parent-&gt;rightChild == nullptr) {</span>
+<span id="L273"><span class="lineNum">     273</span>                 :             :                         parent-&gt;rightChild = newNode;</span>
+<span id="L274"><span class="lineNum">     274</span>                 :             :                         tempQueue.dequeue(); // Убираем родителя из очереди, если оба ребенка установлены</span>
+<span id="L275"><span class="lineNum">     275</span>                 :             :                     }</span>
+<span id="L276"><span class="lineNum">     276</span>                 :             :                 }</span>
+<span id="L277"><span class="lineNum">     277</span>                 :             : </span>
+<span id="L278"><span class="lineNum">     278</span>                 :             :                 if (hasLeftChild || hasRightChild) {</span>
+<span id="L279"><span class="lineNum">     279</span>                 :             :                     tempQueue.enqueue(newNode);</span>
+<span id="L280"><span class="lineNum">     280</span>                 :             :                 }</span>
+<span id="L281"><span class="lineNum">     281</span>                 :             :             }</span>
+<span id="L282"><span class="lineNum">     282</span>                 :             : </span>
+<span id="L283"><span class="lineNum">     283</span>                 :             :             cout &lt;&lt; &quot;Deserialization complete.&quot; &lt;&lt; endl;</span>
+<span id="L284"><span class="lineNum">     284</span>                 :             :             file.close();</span>
+<span id="L285"><span class="lineNum">     285</span>                 :             :         }</span>
+<span id="L286"><span class="lineNum">     286</span>                 :             :     </span>
+<span id="L287"><span class="lineNum">     287</span>                 :             : </span>
+<span id="L288"><span class="lineNum">     288</span>                 :             :     // void load_from_file(const string&amp; filename, const string&amp; name_structure) {</span>
+<span id="L289"><span class="lineNum">     289</span>                 :             : </span>
+<span id="L290"><span class="lineNum">     290</span>                 :             :     //     ifstream file(filename);</span>
+<span id="L291"><span class="lineNum">     291</span>                 :             :         </span>
+<span id="L292"><span class="lineNum">     292</span>                 :             :     //     if (file.is_open()) {</span>
+<span id="L293"><span class="lineNum">     293</span>                 :             : </span>
+<span id="L294"><span class="lineNum">     294</span>                 :             :     //         string line;</span>
+<span id="L295"><span class="lineNum">     295</span>                 :             :     //         bool structure_found = false;</span>
 <span id="L296"><span class="lineNum">     296</span>                 :             : </span>
-<span id="L297"><span class="lineNum">     297</span>                 :             :     //     // Если структура не найдена, добавляем её</span>
-<span id="L298"><span class="lineNum">     298</span>                 :             :     //     if (!structure_found) {</span>
-<span id="L299"><span class="lineNum">     299</span>                 :             :     //         write_file &lt;&lt; name_structure &lt;&lt; &quot;: &quot;;</span>
-<span id="L300"><span class="lineNum">     300</span>                 :             :     //         Queue&lt;node*&gt; tempQueue = allNodes; // Повторно используем очередь для сохранения узлов</span>
-<span id="L301"><span class="lineNum">     301</span>                 :             : </span>
-<span id="L302"><span class="lineNum">     302</span>                 :             :     //         while (!tempQueue.is_empty()) {</span>
-<span id="L303"><span class="lineNum">     303</span>                 :             :     //             node* currentNode = tempQueue.front();</span>
-<span id="L304"><span class="lineNum">     304</span>                 :             :     //             tempQueue.dequeue();</span>
-<span id="L305"><span class="lineNum">     305</span>                 :             : </span>
-<span id="L306"><span class="lineNum">     306</span>                 :             :     //             // Сохраняем ключ узла</span>
-<span id="L307"><span class="lineNum">     307</span>                 :             :     //             write_file &lt;&lt; currentNode-&gt;key;</span>
-<span id="L308"><span class="lineNum">     308</span>                 :             :     //             if (!tempQueue.is_empty()) {</span>
-<span id="L309"><span class="lineNum">     309</span>                 :             :     //                 write_file &lt;&lt; &quot;, &quot;; </span>
-<span id="L310"><span class="lineNum">     310</span>                 :             :     //             }</span>
-<span id="L311"><span class="lineNum">     311</span>                 :             :     //         }</span>
-<span id="L312"><span class="lineNum">     312</span>                 :             :     //         write_file &lt;&lt; &quot;\n&quot;; </span>
-<span id="L313"><span class="lineNum">     313</span>                 :             :     //     }</span>
-<span id="L314"><span class="lineNum">     314</span>                 :             : </span>
-<span id="L315"><span class="lineNum">     315</span>                 :             :     //     write_file.close(); </span>
-<span id="L316"><span class="lineNum">     316</span>                 :             :     // }</span>
-<span id="L317"><span class="lineNum">     317</span>                 :             : </span>
-<span id="L318"><span class="lineNum">     318</span>                 :             : };</span>
+<span id="L297"><span class="lineNum">     297</span>                 :             :     //         while (getline(file, line)) {</span>
+<span id="L298"><span class="lineNum">     298</span>                 :             : </span>
+<span id="L299"><span class="lineNum">     299</span>                 :             :     //             if (line.find(name_structure + &quot;:&quot;) != string::npos) {</span>
+<span id="L300"><span class="lineNum">     300</span>                 :             : </span>
+<span id="L301"><span class="lineNum">     301</span>                 :             :     //                 structure_found = true; </span>
+<span id="L302"><span class="lineNum">     302</span>                 :             :     //                 size_t pos = line.find(':');</span>
+<span id="L303"><span class="lineNum">     303</span>                 :             :     //                 string values = line.substr(pos + 1); </span>
+<span id="L304"><span class="lineNum">     304</span>                 :             :     //                 stringstream ss(values);</span>
+<span id="L305"><span class="lineNum">     305</span>                 :             :     //                 string value;</span>
+<span id="L306"><span class="lineNum">     306</span>                 :             : </span>
+<span id="L307"><span class="lineNum">     307</span>                 :             :     //                 // Парсим значения, разделенные запятыми</span>
+<span id="L308"><span class="lineNum">     308</span>                 :             :     //                 while (getline(ss, value, ',')) {</span>
+<span id="L309"><span class="lineNum">     309</span>                 :             :     //                     int key = stoi(value); </span>
+<span id="L310"><span class="lineNum">     310</span>                 :             :     //                     try {</span>
+<span id="L311"><span class="lineNum">     311</span>                 :             :     //                         Add(key); // Добавляем узел в дерево</span>
+<span id="L312"><span class="lineNum">     312</span>                 :             :     //                     } catch (const runtime_error&amp; e) {</span>
+<span id="L313"><span class="lineNum">     313</span>                 :             :     //                         cerr &lt;&lt; &quot;Error when adding a value &quot; &lt;&lt; key &lt;&lt; &quot;: &quot; &lt;&lt; e.what() &lt;&lt; endl;</span>
+<span id="L314"><span class="lineNum">     314</span>                 :             :     //                     }</span>
+<span id="L315"><span class="lineNum">     315</span>                 :             :     //                 }</span>
+<span id="L316"><span class="lineNum">     316</span>                 :             :     //                 break; </span>
+<span id="L317"><span class="lineNum">     317</span>                 :             :     //             }</span>
+<span id="L318"><span class="lineNum">     318</span>                 :             :     //         }</span>
 <span id="L319"><span class="lineNum">     319</span>                 :             : </span>
+<span id="L320"><span class="lineNum">     320</span>                 :             :     //         file.close();</span>
+<span id="L321"><span class="lineNum">     321</span>                 :             :     //     } else {</span>
+<span id="L322"><span class="lineNum">     322</span>                 :             :     //         cerr &lt;&lt; &quot;Error opening the file for reading.\n&quot;;</span>
+<span id="L323"><span class="lineNum">     323</span>                 :             :     //     }</span>
+<span id="L324"><span class="lineNum">     324</span>                 :             :     // }</span>
+<span id="L325"><span class="lineNum">     325</span>                 :             : </span>
+<span id="L326"><span class="lineNum">     326</span>                 :             :     // void save_to_file(const string&amp; filename, const string&amp; name_structure) const {</span>
+<span id="L327"><span class="lineNum">     327</span>                 :             : </span>
+<span id="L328"><span class="lineNum">     328</span>                 :             :     //     ifstream read_file(filename);</span>
+<span id="L329"><span class="lineNum">     329</span>                 :             :     //     Myvector&lt;string&gt; lines; // Используем вектор для хранения строк</span>
+<span id="L330"><span class="lineNum">     330</span>                 :             :     //     string line;</span>
+<span id="L331"><span class="lineNum">     331</span>                 :             :     //     bool structure_found = false;</span>
+<span id="L332"><span class="lineNum">     332</span>                 :             : </span>
+<span id="L333"><span class="lineNum">     333</span>                 :             :     //     if (read_file.is_open()) {</span>
+<span id="L334"><span class="lineNum">     334</span>                 :             :     //         while (getline(read_file, line)) {</span>
+<span id="L335"><span class="lineNum">     335</span>                 :             :     //             lines.MPUSH(line); </span>
+<span id="L336"><span class="lineNum">     336</span>                 :             :     //         }</span>
+<span id="L337"><span class="lineNum">     337</span>                 :             :     //         read_file.close();</span>
+<span id="L338"><span class="lineNum">     338</span>                 :             :     //     } else {</span>
+<span id="L339"><span class="lineNum">     339</span>                 :             :     //         cerr &lt;&lt; &quot;Error opening the file for reading.\n&quot;;</span>
+<span id="L340"><span class="lineNum">     340</span>                 :             :     //         return;</span>
+<span id="L341"><span class="lineNum">     341</span>                 :             :     //     }</span>
+<span id="L342"><span class="lineNum">     342</span>                 :             : </span>
+<span id="L343"><span class="lineNum">     343</span>                 :             :     //     // Открываем файл для записи</span>
+<span id="L344"><span class="lineNum">     344</span>                 :             :     //     ofstream write_file(filename);</span>
+<span id="L345"><span class="lineNum">     345</span>                 :             :     //     if (!write_file.is_open()) {</span>
+<span id="L346"><span class="lineNum">     346</span>                 :             :     //         cerr &lt;&lt; &quot;Error opening the file for writing.\n&quot;;</span>
+<span id="L347"><span class="lineNum">     347</span>                 :             :     //         return;</span>
+<span id="L348"><span class="lineNum">     348</span>                 :             :     //     }</span>
+<span id="L349"><span class="lineNum">     349</span>                 :             : </span>
+<span id="L350"><span class="lineNum">     350</span>                 :             :     //     for (const auto&amp; existing_line : lines) {</span>
+<span id="L351"><span class="lineNum">     351</span>                 :             :     //         if (existing_line.find(name_structure + &quot;:&quot;) == 0) {</span>
+<span id="L352"><span class="lineNum">     352</span>                 :             :     //             structure_found = true;</span>
+<span id="L353"><span class="lineNum">     353</span>                 :             : </span>
+<span id="L354"><span class="lineNum">     354</span>                 :             :     //             // Заменяем строку структуры новыми значениями</span>
+<span id="L355"><span class="lineNum">     355</span>                 :             :     //             write_file &lt;&lt; name_structure &lt;&lt; &quot;: &quot;;</span>
+<span id="L356"><span class="lineNum">     356</span>                 :             :     //             Queue&lt;node*&gt; tempQueue = allNodes; // Используем очередь для сохранения узлов</span>
+<span id="L357"><span class="lineNum">     357</span>                 :             : </span>
+<span id="L358"><span class="lineNum">     358</span>                 :             :     //             while (!tempQueue.is_empty()) {</span>
+<span id="L359"><span class="lineNum">     359</span>                 :             :     //                 node* currentNode = tempQueue.front();</span>
+<span id="L360"><span class="lineNum">     360</span>                 :             :     //                 tempQueue.dequeue();</span>
+<span id="L361"><span class="lineNum">     361</span>                 :             : </span>
+<span id="L362"><span class="lineNum">     362</span>                 :             :     //                 // Сохраняем ключ узла</span>
+<span id="L363"><span class="lineNum">     363</span>                 :             :     //                 write_file &lt;&lt; currentNode-&gt;key;</span>
+<span id="L364"><span class="lineNum">     364</span>                 :             :     //                 if (!tempQueue.is_empty()) {</span>
+<span id="L365"><span class="lineNum">     365</span>                 :             :     //                     write_file &lt;&lt; &quot;, &quot;; </span>
+<span id="L366"><span class="lineNum">     366</span>                 :             :     //                 }</span>
+<span id="L367"><span class="lineNum">     367</span>                 :             :     //             }</span>
+<span id="L368"><span class="lineNum">     368</span>                 :             :     //             write_file &lt;&lt; &quot;\n&quot;; </span>
+<span id="L369"><span class="lineNum">     369</span>                 :             :     //         } else {</span>
+<span id="L370"><span class="lineNum">     370</span>                 :             :     //             write_file &lt;&lt; existing_line &lt;&lt; &quot;\n&quot;; </span>
+<span id="L371"><span class="lineNum">     371</span>                 :             :     //         }</span>
+<span id="L372"><span class="lineNum">     372</span>                 :             :     //     }</span>
+<span id="L373"><span class="lineNum">     373</span>                 :             : </span>
+<span id="L374"><span class="lineNum">     374</span>                 :             :     //     // Если структура не найдена, добавляем её</span>
+<span id="L375"><span class="lineNum">     375</span>                 :             :     //     if (!structure_found) {</span>
+<span id="L376"><span class="lineNum">     376</span>                 :             :     //         write_file &lt;&lt; name_structure &lt;&lt; &quot;: &quot;;</span>
+<span id="L377"><span class="lineNum">     377</span>                 :             :     //         Queue&lt;node*&gt; tempQueue = allNodes; // Повторно используем очередь для сохранения узлов</span>
+<span id="L378"><span class="lineNum">     378</span>                 :             : </span>
+<span id="L379"><span class="lineNum">     379</span>                 :             :     //         while (!tempQueue.is_empty()) {</span>
+<span id="L380"><span class="lineNum">     380</span>                 :             :     //             node* currentNode = tempQueue.front();</span>
+<span id="L381"><span class="lineNum">     381</span>                 :             :     //             tempQueue.dequeue();</span>
+<span id="L382"><span class="lineNum">     382</span>                 :             : </span>
+<span id="L383"><span class="lineNum">     383</span>                 :             :     //             // Сохраняем ключ узла</span>
+<span id="L384"><span class="lineNum">     384</span>                 :             :     //             write_file &lt;&lt; currentNode-&gt;key;</span>
+<span id="L385"><span class="lineNum">     385</span>                 :             :     //             if (!tempQueue.is_empty()) {</span>
+<span id="L386"><span class="lineNum">     386</span>                 :             :     //                 write_file &lt;&lt; &quot;, &quot;; </span>
+<span id="L387"><span class="lineNum">     387</span>                 :             :     //             }</span>
+<span id="L388"><span class="lineNum">     388</span>                 :             :     //         }</span>
+<span id="L389"><span class="lineNum">     389</span>                 :             :     //         write_file &lt;&lt; &quot;\n&quot;; </span>
+<span id="L390"><span class="lineNum">     390</span>                 :             :     //     }</span>
+<span id="L391"><span class="lineNum">     391</span>                 :             : </span>
+<span id="L392"><span class="lineNum">     392</span>                 :             :     //     write_file.close(); </span>
+<span id="L393"><span class="lineNum">     393</span>                 :             :     // }</span>
+<span id="L394"><span class="lineNum">     394</span>                 :             : </span>
+<span id="L395"><span class="lineNum">     395</span>                 :             : };</span>
+<span id="L396"><span class="lineNum">     396</span>                 :             : </span>
         </pre>
               </td>
             </tr>

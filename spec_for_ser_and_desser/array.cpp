@@ -1,4 +1,3 @@
-
 #include "/home/kln735/4test_lab/src/array.h"  
 
 
@@ -15,11 +14,11 @@ int main(){
     start.MPUSH("Stepan");
     start.MPUSH("Artem");
 
-    start.serialization("serialize.bin");
+    start.serialization("serializear.bin");
 
     Myvector<string> end;
 
-    end.deserialization("serialize.bin");
+    end.deserialization("serializear.bin");
     end.print();
 
     return 0;

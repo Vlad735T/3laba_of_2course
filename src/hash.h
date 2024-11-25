@@ -128,6 +128,139 @@ public:
         }
     }
 
+    void serialization(const string& filename) { 
+            ofstream file(filename, ios::binary);
+            if (!file.is_open()) {
+                cerr << "Error opening file for writing: " << filename << "\n";
+                return;
+            }
+
+            int SIZE = this->size;
+            file.write(reinterpret_cast<char*>(&SIZE), sizeof(SIZE));
+            if (!file) {
+                cerr << "Error writing size to file.\n";
+                return;
+            }
+
+            // Проходим по таблице и записываем данные
+            for (int i = 0; i < SIZE; i++) {
+                Node* current = table[i];
+                while (current != nullptr) {
+                    int key_length = current->key.size();
+                    file.write(reinterpret_cast<char*>(&key_length), sizeof(key_length));
+                    if (!file) {
+                        cerr << "Error writing key length to file.\n";
+                        return;
+                    }
+                    file.write(current->key.c_str(), key_length);
+                    if (!file) {
+                        cerr << "Error writing key to file.\n";
+                        return;
+                    }
+
+                    int value_length = current->value.size();
+                    file.write(reinterpret_cast<char*>(&value_length), sizeof(value_length));
+                    if (!file) {
+                        cerr << "Error writing value length to file.\n";
+                        return;
+                    }
+                    file.write(current->value.c_str(), value_length);
+                    if (!file) {
+                        cerr << "Error writing value to file.\n";
+                        return;
+                    }
+
+                    // cout << "Serialized key-value pair: [" << current->key << ": " << current->value << "]" << endl;
+
+                    current = current->next;
+                }
+            }
+
+            file.close();
+            if (!file) {
+                cerr << "Error closing file after writing.\n";
+            } else {
+                cout << "Serialization successful!" << "\n";
+            }
+    }
+
+
+    void deserialization(const string& filename) {
+        ifstream file(filename, ios::binary);
+        if (!file.is_open()) {
+            cerr << "Error opening file for reading: " << filename << "\n";
+            return;
+        }
+
+        // Очистка таблицы перед загрузкой
+        for (int i = 0; i < size; ++i) {
+            Node* current = table[i];
+            while (current != nullptr) {
+                Node* temp = current;
+                current = current->next;
+                delete temp;
+            }
+            table[i] = nullptr;
+        }
+
+        // Читаем новый размер
+        int size_new;
+        file.read(reinterpret_cast<char*>(&size_new), sizeof(size_new));
+        if (!file) {
+            cerr << "Error reading size from file.\n";
+            return;
+        }
+
+        // Если размер изменился, пересоздаем таблицу
+        if (size_new != size) {
+            delete[] table;
+            size = size_new;
+            table = new Node*[size];
+            for (int i = 0; i < size; ++i) {
+                table[i] = nullptr;
+            }
+        }
+
+        // Чтение ключей и значений из файла
+        while (file.peek() != EOF) {
+            int keyLength;
+            file.read(reinterpret_cast<char*>(&keyLength), sizeof(keyLength));
+            if (!file) {
+                cerr << "Error reading key length from file.\n";
+                return;
+            }
+
+            string key(keyLength, '\0');
+            file.read(&key[0], keyLength);
+            if (!file) {
+                cerr << "Error reading key from file.\n";
+                return;
+            }
+
+            int valueLength;
+            file.read(reinterpret_cast<char*>(&valueLength), sizeof(valueLength));
+            if (!file) {
+                cerr << "Error reading value length from file.\n";
+                return;
+            }
+
+            string value(valueLength, '\0');
+            file.read(&value[0], valueLength);
+            if (!file) {
+                cerr << "Error reading value from file.\n";
+                return;
+            }
+
+            add(key, value);
+        }
+
+        file.close();
+        if (!file) {
+            cerr << "Error closing file after reading.\n";
+        } else {
+            cout << "Deserialization successful!" << "\n";
+        }
+    }
 
 
     // void load_from_file(const string& filename, const string& name_structure) {

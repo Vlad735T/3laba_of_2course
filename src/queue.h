@@ -37,6 +37,19 @@ public:
         return head == nullptr;
     }
 
+    int size(){
+        if (is_empty()){
+            throw runtime_error("Empty!");
+        }
+        Node* current = head;
+        int count = 0;
+        while(current){
+            count++;
+            current = current->next;
+        }
+        return count;
+    }  
+
     void push(const T& name) {
         Node* new_node = new Node(name);
 
@@ -69,15 +82,6 @@ public:
         return head->person;
     }
 
-    size_t size() const {
-        size_t count = 0;
-        Node* current = head;
-        while (current != nullptr) {
-            ++count;
-            current = current->next;
-        }
-        return count;
-    }
 
     void print() const {
         Node* current = head;
@@ -88,6 +92,50 @@ public:
         cout << "\n";
     }
 
+    void serialization(const string& filename){
+        ofstream file(filename, ios::binary);
+        if(!file.is_open()){
+            cerr << "Ошибка открытия файла для записи.\n";
+            return;
+        }
+
+        int SIZE = this -> size();
+        file.write(reinterpret_cast<char*>(&SIZE), sizeof(SIZE));
+
+        Node* temp = head;
+        for(int i = 0; i < SIZE; i++,  temp = temp -> next){
+            size_t length_word = temp -> person.size();
+            file.write(reinterpret_cast<char*>(&length_word), sizeof(length_word));
+            file.write(temp -> person.c_str(), length_word);
+        }
+        file.close();
+    }
+
+
+    void deserialization(const string& filename){
+        ifstream file(filename, ios::binary);
+
+        if(!file.is_open()){
+            cerr << "Ошибка открытия файла для чтения.\n";
+            return;
+        }
+
+        int size;
+        file.read(reinterpret_cast<char*>(&size), sizeof(size));
+
+        for(int i = 0; i < size; i++){
+            size_t length_word;
+            file.read(reinterpret_cast<char*>(&length_word), sizeof(length_word));
+
+            string buffer(length_word, '\0');
+            file.read(&buffer[0], length_word);
+            push(buffer);
+            
+        }
+        cout << "Deserialization was successful done!!!\n";
+        file.close();
+    }
+    
     // void save_to_file(const string& filename, const string& name_structure) const {
     //     ifstream read_file(filename);
     //     Myvector<string> lines;  
@@ -175,4 +223,5 @@ public:
     //         cerr << "Error opening the file for reading.\n";
     //     }
     // }
+
 };

@@ -36,6 +36,15 @@ public:
         return head == nullptr;
     }
 
+    int size(){
+        Node* temp = head;
+        int razmer = 0;
+        while(temp != nullptr){
+            razmer++;
+            temp = temp -> next;
+        }
+        return razmer;
+    }
     void addtail(T value) {
         Node* newNode = new Node(value);
         if (is_empty()) {
@@ -178,6 +187,56 @@ public:
         cout << "\n";
     }
 
+    void serialization(const string& filename){
+
+        ofstream file(filename, ios::binary);
+        if(!file.is_open()){
+            cerr << "Error opening file!!!" << "\n";
+            return;
+        }
+
+        int sizes = this -> size();
+
+        file.write(reinterpret_cast<char*>(&sizes), sizeof(sizes));
+
+        Node* temp = head;
+
+        for(int i = 0; i < sizes; i++){
+            size_t count_of_letters = temp -> data.size();
+
+            file.write(reinterpret_cast<char*>(&count_of_letters), sizeof(count_of_letters));
+            file.write(temp -> data.c_str(), count_of_letters);
+            temp = temp -> next;
+        }
+        file.close();
+    }
+
+    void deserialization(const string& filename){
+
+        ifstream file(filename, ios::binary);
+
+        if(!file.is_open()){
+            cerr << "Error opening file!!!" << "\n";
+            return;
+        }
+
+        int size; 
+        file.read(reinterpret_cast<char*>(&size), sizeof(size));
+
+        for(int i = 0; i < size; i++){
+            size_t length_word;
+            file.read(reinterpret_cast<char*>(&length_word), sizeof(length_word));
+
+            char* letter = new char [length_word + 1];
+            file.read(letter, length_word);
+            letter[length_word] = '\0';
+            addtail(string(letter));
+            delete [] letter;
+        }
+        cout << "Deserialization was successful done!!!\n";
+        file.close();
+    }
+    
     // void load_from_file(const string& filename, const string& name_structure) {
     //     ifstream file(filename);
         
@@ -283,5 +342,6 @@ public:
 
     //     write_file.close();
     // }
+
 };
 

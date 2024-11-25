@@ -191,6 +191,52 @@ public:
         // Если индекс выходит за пределы списка
         throw out_of_range("Index out of range");
     }
+
+    void serialization(const string& filename){
+        ofstream file(filename, ios::binary);
+        if(!file.is_open()){
+            cerr << "Ошибка открытия файла для записи.\n";
+            return;
+        }
+
+        int size = this -> list_size;
+        file.write(reinterpret_cast<char*>(&size), sizeof(size));
+
+        Node* temp = head;
+        for(int i = 0; i < list_size; i++){
+            size_t length_word = temp -> data.size();
+            file.write(reinterpret_cast<char*>(&length_word), sizeof(length_word));
+            file.write(temp -> data.c_str(), length_word);
+            temp = temp -> next;
+        }
+        file.close();
+    }
+
+
+    void deserialization(const string& filename){
+        ifstream file(filename, ios::binary);
+
+        if(!file.is_open()){
+            cerr << "Ошибка открытия файла для чтения.\n";
+            return;
+        }
+
+        int size;
+        file.read(reinterpret_cast<char*>(&size), sizeof(size));
+
+        for(int i = 0; i < size; i++){
+            size_t length_word;
+            file.read(reinterpret_cast<char*>(&length_word), sizeof(length_word));
+
+            string buffer(length_word, '\0');
+            file.read(&buffer[0], length_word);
+            addtail(buffer);
+            
+        }
+        cout << "Deserialization was successful done!!!\n";
+        file.close();
+    }
+
 };
 
 
@@ -297,5 +343,3 @@ public:
 
     //     write_file.close();  
     // }
-
-

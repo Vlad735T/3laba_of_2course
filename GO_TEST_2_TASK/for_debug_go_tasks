@@ -1,0 +1,10 @@
+( имя  модуля )
+
+go mod init go_test_2_task 
+go get github.com/stretchr/testify
+go get github.com/stretchr/testify/assert
+
+go test ./...
+go test -coverprofile=coverage.out ./...
+go tool cover -html=coverage.out -o coverage.html
+xdg-open coverage.html
