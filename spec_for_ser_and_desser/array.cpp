@@ -15,7 +15,7 @@ int main(){
     start.MPUSH("Stepan");
     start.MPUSH("Artem");
 
-    start.serialize("serialize.bin");
+    start.serialization("serialize.bin");
 
     Myvector<string> end;
 
